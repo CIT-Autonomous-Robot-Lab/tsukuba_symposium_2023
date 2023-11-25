@@ -1,0 +1,577 @@
+\documentclass[twocolumn,9pt]{jsproceedings}
+\RequirePackage[l2tabu,orthodox]{nag}  % 古いコマンドやパッケージを使用した場合に警告する
+\usepackage[all,warning]{onlyamsmath}  % amsmath が提供しない数式環境を使用した場合に警告する
+% \usepackage{flushend}  % 最終ページの2カラムの左右の高さを揃える
+\usepackage{here} %図の場所の指定で[h]（ここに貼る）を指定するためのパッケージ
+\usepackage[dvipdfmx]{graphicx} %dvipdfmxはjpgやpngの張り込みのために使用
+
+
+% タイトル
+\title{Raspberry Piのみを計算に用いる小型移動ロボットでの\\つくばチャレンジ2022参加レポート}
+
+\author{○池邉　龍宏\authorrefmark{2}、内田　璃空\authorrefmark{2}、畑中　優一郎\authorrefmark{1}、臼井　温希\authorrefmark{1}、庄司　史門\authorrefmark{1}、松井　大和\authorrefmark{1}、\\
+山崎　政光\authorrefmark{1}、登内　リオン\authorrefmark{1}、林原　靖男\authorrefmark{1}、上田　隆一\authorrefmark{1}}
+
+\etitle{Participation report in the Tsukuba Challenge 2022\\using a small mobile robot with a Raspberry Pi}
+
+\eauthor{○Tatsuhiro IKEBE\eauthorrefmark{2}、Riku UCHIDA\eauthorrefmark{2}、Yuichiro HATANAKA\eauthorrefmark{1}、Atsuki USUI\eauthorrefmark{1}、Shimon SHOJI\eauthorrefmark{1}、Yamato MATSUI\eauthorrefmark{1}、Masamitsu YAMAZAKI\eauthorrefmark{1}、Leon TONOUCHI\eauthorrefmark{1}、\\Yasuo HAYASHIBARA\eauthorrefmark{1}、Ryuichi UEDA\eauthorrefmark{1}}
+
+\affiliation{千葉工業大学 未来ロボティクス学科 Cat Aチーム/Bチーム}
+
+% \abstract{
+% }
+
+% \keywords{}
+
+\begin{document}
+\maketitle
+
+\authorreftext{1}{千葉工業大学先進工学部未来ロボティクス学科}
+\authorreftext{2}{千葉工業大学院先進工学研究科未来ロボティクス専攻}
+\eauthorreftext{1}{Department of Advanced Robotics、Faculty of Advanced Engineering、Chiba Institute of Technology}
+\eauthorreftext{2}{Department of Advanced Robotics、Graduate School of Advanced Engineering、Chiba Institute of Technology}
+
+%句読点はあとからsedで統一しましょう
+
+% 本文
+\section{緒言}
+
+千葉工業大学未来ロボティクス学科Cat Aチーム/Bチームは、
+図\ref{fig:raspicat}に見られる小型で簡素なセンサ構成のロボットを、
+屋外で安定して自律走行させるためのソフトウェアを研究している．
+簡素さをテーマにするのは、
+安価な屋外移動ロボットのシステムの実現と、
+情報が不確かなときのロボットの巧妙な振る舞いの研究に興味があるからである。
+最新、高性能なセンサを次々に導入する方針だと、
+アルゴリズムの工夫にかける時間や動機が減り、
+また、ロボットの計算機、台車、電池の大型化、
+製作、メンテナンス費用の増大を招く。
+そこで、あえて計算負荷の低いセンサと
+小型の計算機での安定した自己位置推定やナビゲーション
+の実現に取り組んでいる。
+
+
+本年度は、
+\begin{itemize}
+\item 計算機としてRaspberry Pi 4 Model Bのみを使用（Aチーム: DRAMが8GBのモデル、Bチーム: DRAMが4GBのモデル）
+\item 外界センサとして2次元LiDARのみを使用
+\item 移動量の算出に内界センサ（IMUや車輪のロータリーエンコーダ）を不使用
+\end{itemize}
+という構成で、つくばチャレンジ本走行での完走を試みた。
+昨年度はノート型PC（Core i7-10750H）を計算機として使用したが、
+本年度は用いず、ナビゲーションに関する全ての計算を
+Raspberry Pi 4ひとつで実現した。
+ロボットはアールティ社製の既製品、Raspberry Pi Catである。
+
+
+
+\begin{figure}[h]
+ 	\begin{center}
+ 		\includegraphics[width=1.0\linewidth]{figs/raspicat.pdf}
+ 		\caption{Raspberry Pi Cat（左: Aチーム、右: Bチーム）}
+ 		\label{fig:raspicat}
+ 	\end{center}
+\end{figure}
+
+本年度の本走行の結果を表\ref{MainRun}に示す。
+記録としては両チームとも確認走行区間の終わりか、少し超えた程度の
+地点までしか到達できなかったが、
+Bチームについては、ノートPCを計算機に用いた昨年の成績を上回った。
+また、実験走行では, Aチームは4回の人の介入のみでゴールまで到達することができ、
+完走に向けて目処が立った。
+
+\begin{table}[h]
+  \caption{各チームの本走行の結果}
+  \label{MainRun}
+	\begin{tabular}{|c|c|p{5.4cm}|}
+    \hline
+	チーム & 走行距離 & リタイアの理由 \\
+    \hline
+	A & 200[m] & 市役所前の横断歩道の横断直前で，点字ブロックに車輪を取られ自己位置推定が破綻\\
+    \hline
+	B & 369[m] & 2つめの一時停止地点において一時停止の規則に違反 \\ 
+    \hline
+  \end{tabular}
+\end{table}
+
+
+本稿では、本チームのような2次元LiDAR、Raspberry Pi
+という構成での屋外移動ロボットの構築方法を説明する。
+また、この構成で特に重要となる自己位置推定について、
+つくばチャレンジで起こったことを踏まえて議論する。
+本稿の構成は次の通りである. 
+2章ではリタイヤの原因について、
+3章ではロボットのシステムについて説明をし、
+自己位置推定やその他ナビゲーションのソフトウェアに
+見つかった課題について説明をする. 
+4章では結言を述べる。
+
+%2章、3章では、参加したロボットの構成について、
+%それぞれハードウェア、ソフトウェアの面から説明する. 
+%4章では本年度のつくばチャレンジでのチームの活動や、
+%実験走行、本走行での結果を説明する.
+%5章で考察を行い、6章で得られた知見、7章で結言を述べる. 
+%@@@変更あり@@@
+
+\section{リタイアの原因}
+
+本章では、本走行や実験走行で発生した
+リタイアの際の状況について説明する。
+これらを踏まえて、次章以降でシステムについて
+詳細について説明する。
+
+\subsection{本走行でのリタイア}\label{sub:retire}
+
+
+本走行でのリタイアの原因については、
+表\ref{MainRun}に記述したとおりである。
+Aチームについては、点字ブロックで
+ロボットが急に向きを変え、自己位置推定が破綻した。
+本チームでは、ロボットのオドメーターも
+ジャイロも使用せずに自己位置推定する方式であったので、
+急な向きのズレに脆弱であった。
+
+Bチームについては、表の通り一時停止に失敗したが、
+直接的な原因は自己位置推定の正確さが足りなかったことである。
+ただし推定がずれた理由がセンサや自己位置推定アルゴリズムではなく、
+計算時間の遅れではないかとチーム内で議論している。
+ただし、これを本走行で得られた
+データから解析することが難しく、検証は今後の課題となっている。
+
+\subsection{実験走行でのリタイア}
+
+
+Aチームは実験走行においては、スタートから
+4回のリタイアと、その場の再スタートを経てゴールまで走行できた
+試行があった\cite{youtube}。表\ref{4hands}に、
+手を加えた箇所をまとめた．
+この試行では、ロボットが急に向きを変えることがなく、
+自己位置推定の破綻は道中で1度のみであった。
+一方で、静止、あるいは動く障害物との衝突が目立った。
+障害物との衝突の原因についても、
+前節のBチームと同様、
+Raspberry Piによる計算の遅れが
+チーム内で疑われている。
+
+\begin{table}[h]
+  \caption{ある実験走行におけるリタイアの箇所}
+  \label{4hands}
+	\begin{tabular}{|l|p{3.5cm}|}
+    \hline
+    手を加えたポイント & 原因 \\
+    \hline
+    信号あり横断歩道西側の歩道 & コーンとの衝突 \\
+    \hline
+    信号あり横断歩道の横断中 & 対向してくるロボットとの衝突 \\ 
+    \hline
+    公園エリアの横断歩道の手前 & コーンとの衝突 \\ 
+    \hline
+    信号あり横断歩道西側の歩道 & 自己位置の喪失 \\ 
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{ロボットのシステム}
+
+\subsection{センシングから自己位置推定までのシステム}\label{sub:localization}
+
+\subsubsection{使用したハードウェアとソフトウェア}
+
+%つくばチャレンジ2021では、2D LiDARのみによる自己位置推定を行った。
+%去年\cite{RTshop}では、順調に信号あり横断歩道まで走行ができたため、
+%今年は同じセンサ構成で挑んだ。
+
+自己位置推定には、図\ref{fig:hardware}のように、
+2次元のLiDARとRaspberry Pi 4を用いた。
+つくばチャレンジにおいては、
+全区間において安定した自己位置推定を実現し、
+もはや自己位置推定を難題としないチームも存在する。
+しかし、本チームの場合、
+緒言で述べたように「簡素な構成」での安定した
+自己位置推定を実現することが課題となる。
+他のチームと比べて計算能力の低い
+Raspberry Piを使うという制限のなかで、
+ナビゲーションしながら実時間で自己位置推定を
+実行しなければならない。
+
+
+LiDARの取り付け位置は、図\ref{fig:raspicat}
+に見られるように車体前方で、
+これは昨年度\cite{池邉2021}と同じである。
+慣性計測装置（IMU）や車輪の回転角の計測も、
+昨年度と同様、使用しなかった。
+変更しなかったのは、昨年度、同様の構成で
+信号までの区間を安定して走行できたからである。
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/hardware.pdf}
+    \caption{ハードウェア構成}
+    \label{fig:hardware}
+  \end{center}
+\end{figure}
+
+自己位置推定については、本年度の本走行では、
+本チームで開発したオリジナルの
+パッケージemcl2\cite{emcl2}を利用した。
+emcl2はamcl\cite{amcl}と互換のパッケージで、
+amclよりもカスタマイズしやすい
+自己位置推定ソフトウェアとして開発したものである。
+Aチームではemcl2をカスタマイズし、
+走行している区間に応じてパラメータを
+変更する仕組みを実装してemcl2を用いた。
+また、Bチームについては、本走行前までamclを用いていたが、
+スタート付近で人が多い場合、amclでの走行に不安定さが見られたため、
+本走行前に急遽emcl2を利用することとなった。
+
+
+emcl2がamclよりカスタマイズしやすいのは、
+\begin{itemize}
+	\item amclがCとC++の混在だったものをemcl2ではC++に統一
+	\item 2次元LiDARで尤度場を使うアルゴリズムのみを実装
+	\item Augmented MCL\cite{gutmann2002}やAdaptive MCL\cite{fox2003}、ロボットが走行していないときのセンサ情報の破棄など、必須ではない仕掛けを排除
+\end{itemize}
+したからである。
+Aチームでは後述のように、
+デッドレコニングの誤差の見積もりに関するパラメータを
+可変にするためのカスタマイズを行った。
+
+emcl2、amclのどちらがロバスト性や正確さの点で
+優れているのかは明らかになってはいない。
+しかし、emcl2は、
+多くの利用者がいて実績のあるamclと
+遜色のない安定さが確認されている。
+
+
+
+Aチームが自己位置推定に使用したマップを図\ref{fig:map_tsukuba}に示す。
+マッピングには、gmapping\cite{gmapping}を用いた. 
+マップは、昨年度のもの（信号手前までのもの）を一部流用し、
+手動で合成することで、作成する手間を省いた。
+
+
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/map_tsukuba.pdf}
+    \caption{自己位置推定に使用したマップ}
+    \label{fig:map_tsukuba}
+  \end{center}
+\end{figure}
+
+\subsubsection{実験走行、本走行で見つかった課題}
+
+今年度のハードウェア、ソフトウェア構成で問題となった
+点について述べる。先述のように、本チームでは昨年度から
+IMUを使用していなかったが、本年度はより
+広範囲でロボットを走行させたため、
+IMUを使用しない場合の屋外での自己位置推定の難しさが、
+より浮き彫りとなった。
+なお、「簡素な構成」という点で、IMUの使用は
+ロボットの部品数を増やすことになるが、
+一方で自己位置推定の際の計算負荷を下げる効果があるため、
+来年度以降は「IMU不使用」にこだわらず、使用を検討している。
+
+
+\paragraph{横断歩道手前の点字ブロックでの向きの急変}
+
+
+Aチームの本走行は、表\ref{MainRun}のとおり、
+点字ブロックと車輪が干渉し、ロボットが急に向きを変えて
+自己位置推定が破綻するという理由でリタイアとなった。
+図\ref{fig:crosswalk_city_hall}に、このときの状況を示す。
+この写真の直前、ロボットは横断歩道の方向を向いて停止していたが、
+横断歩道を渡ろうとしたときに少し向きが変わって
+自己位置の推定値とずれた。
+このずれをセンサ情報で補正することができず、
+ロボットはずれたままの推定値に基づいて移動を試みて、
+結果として横断歩道と反対の向きになった。
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/crosswalk_city_hall.pdf}
+	  \caption{Aチームのリタイア時の状況}
+    \label{fig:crosswalk_city_hall}
+  \end{center}
+\end{figure}
+
+同様の問題は、Aチームのロボットが信号あり横断歩道を渡る際にも見られた。
+横断歩道手前には、図\ref{fig:stop_second_stop_position}
+のように点字ブロックがあり、デッドレコニングの誤差の原因となる。
+また、横断歩道に向かって下り坂になっているため、
+2次元LiDARのレーザーが路面に当たって誤差の補正ができない。
+さらには、横断歩道手前の信号待ちの停止線付近
+（図\ref{fig:stop_first_stop_position}）は、
+2次元LiDARで捉えることのできる情報が乏しく、
+人が多くて雑音も多く、当チームのハードウェア構成では、
+自己位置推定が非常に困難な状況となった。
+Aチームは、この横断歩道でのロボットの走行を繰り返したが、
+結局、たまたまデッドレコニングの誤差が小さく収まったときのみ、
+横断歩道を渡ることができた。
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/stop_second_stop_position.pdf}
+	  \caption{信号あり横断歩道にある点字ブロック（往路）}
+    \label{fig:stop_second_stop_position}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/stop_first_stop_position.pdf}
+	  \caption{信号あり横断歩道前の停止線（往路）}
+    \label{fig:stop_first_stop_position}
+  \end{center}
+\end{figure}
+
+この問題は、昨年度は顕在化しなかったが、
+本年度のAチームは、昨年度よりも長時間、
+ロボットで実験走行できており、これが
+顕在化の理由のひとつとして考えられる。
+ただし、本年度はノート型PCをロボットに搭載せず、
+ロボットが軽くなり、点字ブロックではねやすくなったことも、
+もうひとつの理由として考えられる。
+
+この問題への対策は、まずはIMUの使用であると考えている。
+また、Bチームについては、機体を安定させるためにバラストを使用しており、
+このような問題は顕在化しなかった。ただし、
+走行時間がAチームと比較して少なかったので、
+バラストが有効であるかどうかは検証の必要がある。
+
+ソフトウェアでの解決も、研究としては興味深い話題である。
+点字ブロックでの移動誤差や、坂道でのセンサ情報の誤差を
+パーティクルの操作に反映することや、
+ロボットが誤差の生じにくい移動経路を選ぶことが考えられる。
+
+\paragraph{特徴の乏しい長い直線での不安定さ}
+
+
+図\ref{fig:city_hall_side_alley}、\ref{fig:park_side_alley}
+に見られる線路沿いの直線において、
+自己位置推定が不安定になる現象が見られた。
+いずれも特徴の乏しい長い直線で、
+パーティクルの分布が道沿いに長くなり、
+その後間違った箇所に収束する現象が見られた。
+
+この現象については、先述のとおり、
+emcl2のパラメータを可変にすることで解決を図った。
+具体的には、この区間ではロボットの移動誤差の見積もりを
+小さくして、パーティクルの分布が大きくならないようにした。
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/city_hall_side_alley.pdf}
+	  \caption{線路沿いの直線（市役所側）}
+    \label{fig:city_hall_side_alley}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/park_side_alley.pdf}
+	  \caption{線路沿いの直線（公園側）}
+    \label{fig:park_side_alley}
+  \end{center}
+\end{figure}
+
+\subsection{経路生成、衝突回避のシステム}
+
+本チームのナビゲーションソフトウェアは図\ref{fig:software}
+のようにROSのNavigation Stackをカスタマイズしたものである。
+図中のemcl2の箇所は、amclと切り替えることがあり、
+実験走行期間中に、本走行でどちらかを使うかを検討した。
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/software.pdf}
+    \caption{ソフトウェア構成}
+    \label{fig:software}
+  \end{center}
+\end{figure}
+
+経路生成、障害物回避には、
+ROS Navigation Stackのglobal planner（ダイクストラ法）、
+DWA plannerを使用している. 
+global plannerは1Hz、DWA plannerは5Hzの周期で実行した。
+Raspberry Piでも、この周期で計算が可能であった。
+ただし\ref{sub:retire}節で述べたように、
+計算時間の遅れが疑われる事象も発生した。
+また、表\ref{4hands}で示したAチームの起こした衝突も、
+ノートPCを使用していたときには見られなかった現象であり、
+計算に遅れが生じた可能性がチーム内で議論されている。
+今後、検証が必要となる。
+
+
+地図としては、1区画$50$[mm]の占有格子地図を用いた。
+この占有格子地図は、ロボットの走行中、
+常にDRAM上に展開された。
+また、同解像度の自己位置推定用の地図も
+DRAM上に展開されたため、
+Raspberry PiのDRAMのほとんどは、
+これらの地図のために用いられた。
+1区画$50$[mm]としたのは、狭い環境での実験で用いた
+区画の大きさをそのままつくばチャレンジで用いたからであり、
+実際には$100$[mm]でも十分だったのではないかと考えている。
+
+Aチームについては、4GBのDRAMでは全域の地図と他のプログラムが
+DRAM上に展開できず、DRAMが8GBのモデルのRaspberry Pi 4を用いた。
+このときemcl2、move\_baseが使用したDRAMの量（地図のためのDRAM使用量も含む）は、
+それぞれ$0.86$GB、$1.9$GBであった。
+一方、Bチームについては、信号つきの横断歩道までの地図
+しか用いなかったため、4GBのモデルのもので十分であった。
+
+
+\subsection{電力消費の大幅削減}
+
+特筆すべき事項として、
+計算にRaspberry Piのみを使うことで、
+電力消費量を大幅に削減することができた。
+Raspberry Pi Catに標準搭載されている
+150Whの充電池を早朝に充電しておくと、
+夕方に実験を終了するまで再充電せず、
+残量を気にすることなくロボットを走らせることができ、
+充電池の残量を管理する手間が本年度は不要であった。
+
+
+\section{結言}
+
+センサとして2次元LiDAR、計算機としてRaspberry Piのみで
+構成された小型ロボットでつくばチャレンジに参加した。
+\ref{sub:localization}節で述べたとおり、
+この構成では、ソフトウェア面において、
+自己位置推定の工夫が必要となった。
+
+来年度は、IMUをセンサに加え、
+Raspberry Piのみを計算機として用いたロボットを
+完走させることを目指す。
+また、計算量の少なさにこだわらない別の試みとして、
+パーティクルの分布から、
+不確かさを考慮して行動決定する手法を
+実装したROSパッケージを作成している\cite{pfc}。
+この手法を実用できると、
+自己位置推定の結果が不確かであれば、
+センシングできない縁石などの障害物から遠ざかって移動するなど、
+よりロボットに柔軟に行動決定させることができる。
+
+\section*{謝辞}
+
+つくばチャレンジ実行委員会、つくば市の皆様に感謝申し上げます．
+本実験走行の一部はJSPS科研費JP20K04382の助成を受けました．
+上田研究室の青木優羽氏、新井亮大氏、学科2年生の藤崎賢蔵氏、林原研究室の皆様には、
+つくばチャレンジ2022の参加にあたりご意見、ご協力頂き感謝申し上げます。
+
+%↑上田整理。あと、著者に名前を連ねない人がいたらここに書くと良いです。
+
+% 参考文献
+% \small
+\footnotesize
+\begin{thebibliography}{99}
+  \bibitem{ROS}
+	  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,'' 
+Open-Source Software workshop of the International Conference on Robotics and Automation、2009. 
+
+\bibitem{fox2003}
+Dieter Fox:
+``Adapting the Sample Size in Particle Filters Through KLD-Sampling,''
+International Journal of Robotics Research、Vol. 22、No. 12、pp. 985-1003、2003. 
+
+\bibitem{gutmann2002}
+Jens-Steffen Gutmann and Dieter Fox: 
+``An Experimental Comparison of Localization Methods Continued,''
+Proc. of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),pp. 454-459、2002.
+  
+% \bibitem{ueda2002tdp}
+% 	Ryuichi Ueda {\it et al.}: 
+% ``Team description of Team ARAIBO,'' 
+% Proc. of 2002 International RoboCup Symposium、2002. 
+
+  % \bibitem{ueda2004iros}
+	% Ryuichi Ueda {\it et al.}: 
+  % ``Expansion Resetting for Recovery from Fatal Error in Monte Carlo Localization -- Comparison with Sensor Resetting Methods,'' Proc．of IROS，pp.2481--2486，2004．
+  
+  % \bibitem{map2gazebo}
+  % Shiloh Curtis: ``shilohc/map2gazebo''，\url{https://github.com/shilohc/map2gazebo} (last visit: 2021-12-31)．
+  
+  % \bibitem{move_base}
+  % Eitan Marder-Eppstein: ``move\_base,'' \url{http://wiki.ros.org/move_base} (last visit: 2021-12-31)．
+  
+  \bibitem{amcl}
+  Brian Gerkey: ``amcl,'' \url{https://wiki.ros.org/amcl} (last visit: 2021-12-31)．
+
+  \bibitem{gmapping}
+  Brian Gerkey: ``gmapping,'' \url{http://wiki.ros.org/gmapping} (last visit: 2021-12-31)．
+  
+  % \bibitem{GIMP}
+  % GIMP.org: ``GIMP,'' \url{https://www.gimp.org/} (last visit: 2021-12-31)．
+  
+\bibitem{emcl2}
+Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2} (last visit: 2022-12-12).
+
+\bibitem{pfc}
+	Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
+
+  \bibitem{raspicat}
+  Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
+  
+  \bibitem{youtube}
+  BEIKE: ``つくばチャレンジ2022 実験走行 11/19 スタートからゴールまで自律移動（神の手4回）,'' \url{https://www.youtube.com/watch?v=3gpjVhRIJDY} (last visit: 2022-12-12)．
+  % \bibitem{raspicat_rosbag}
+  % Tatsuhiro Ikebe: ``uhobeike/raspicat\_rosbag,'' \url{https://github.com/uhobeike/raspicat_rosbag} (last visit: 2021-12-31)．
+
+  \bibitem{池邉2021}
+ 池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
+
+% \bibitem{上田2019}
+% 上田 隆一: ``詳解確率ロボティクス''、講談社、2019.
+
+%   \bibitem{上田2020}
+%  上田隆一，鈴木勇矢: 自己位置が不確かな状況における移動ロボットの危険回避行動の生成，第38回日本ロボット学会学術講演会予稿集，pp．RSJ2020AC2C2-02，オンライン開催，2020.
+
+  % \bibitem{地図合成}
+  % 川合隆太他: ``産業技術大学院大学における自律移動ロボット「産技大2号」の開発''，2019年度つくばチャレンジシンポジウム、pp.4-7、2020.
+
+  % \bibitem{RTshop}
+  % 株式会社アールティ：``Raspberry Pi Cat 屋外でも動かせる中型2輪ロボット''，
+  % RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2021-12-31)
+
+  % \bibitem{aws2020}
+	%   CIT自律ロボット研究室: ``AWSロボットデリバリーチャレンジで本研究室メンバーが優勝,'' \url{https://lab.ueda.tech/?post=20200915_aws_challenge} (last visit 2022-01-04)
+
+  % \bibitem{学科サイト}
+	%   千葉工業大学先進工学部未来ロボティクス学科: ``AWS Robot Delivery Challenge 2021 準優勝''、\url{https://www.robotics.it-chiba.ac.jp/j/?p=838} (last visit 2022-01-04)
+  
+  % \bibitem{つくばチャレンジロボット仕様}
+  % つくばチャレンジ実行委員会事務局：``つくばチャレンジ 2021 ロボット仕様条件''，
+  % \url{https://tsukubachallenge.jp/2021/regulations/specs} (last visit 2021-12-31)
+  
+  % \bibitem{UST-30LX}
+  % 北陽電機株式会社：``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
+  
+  % \bibitem{Turtlebot3 Burger}
+  % 株式会社ロボティズ： ``Turtlebot3 Burgerの仕様''，\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/features/} (last visit: 2022-1-3)．
+  
+  % \bibitem{つくばチャレンジ公式記録}
+  % つくばチャレンジ実行委員会事務局：``つくばチャレンジ2021の走行結果''，
+  % \url{https://tsukubachallenge.jp/2021/records/final} (last visit 2021-12-31)
+
+  % \bibitem{出野畑中}
+	%   畑中 優一郎，出野 廣太郎，上田 隆一：``Raspberry Pi 3BのみでRaspberry Pi Catのナビゲーション（屋内環境編）''，CIT自律ロボット研究室，\url{https://lab.ueda.tech/?post=20211210} (last visit 2022-01-02)
+\end{thebibliography}
+\normalsize
+
+\clearpage
+
+%\section{付録として、各実験走行でどんなことをやっていたかを書く？}
+% 当チームは、9日間分のすべての実験走行会に参加した。
+% 7月2日、7月23日は確認走行区間から信号あり横断歩道手前までの自己位置推定のテストを行った。
+% 地図は昨年作ったものを使い、自己位置推定のパッケージにemcl2を使った。
+% また、駅・公園エリアの地図作成のためのrosbagを取った。
+% 9月17日、10月1日は駅・公園エリアの走行実験を行った。
+% 走行エリアが増えたことに伴い地図の容量が増大し、4GBメモリのRaspberry Piでは処理できなかった。
+% メモリの容量を増やし、地図の余白部分を削ることで駅・公園エリアが走行できるようになった。
+% 10月22日、10月23日は信号あり横断歩道の横断の走行テストを行った。
+% 通常の走行速度では青信号中に横断しきれなかったため、
+% 信号あり横断歩道の横断中のみ走行速度を変えることで、青信号中に横断しきることができた。
+
+\end{document}
