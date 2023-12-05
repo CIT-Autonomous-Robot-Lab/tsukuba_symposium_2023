@@ -1,6 +1,6 @@
 # tsukuba_symposium_2023
 
-## latex install
+## LaTeX install
 
 ```
 sudo apt install texlive-lang-cjk xdvik-ja evince texlive-science texlive-fonts-recommended texlive-fonts-extra
@@ -24,7 +24,8 @@ make clean
 
 ## 内容について
 
-各チームでやったことをどんどん書いていく。とりあえず、各チーム間のつながりは気にしないで良い。
+各チームでやったことをどんどん書いていく。  
+とりあえず、各チーム間のつながりは気にしないで良い。
 
 ## 締め切りについて
 
