@@ -48,7 +48,7 @@
   \end{itemize}
   \item たまチーム
   \begin{itemize}
-    \item 本研究室の自己位置推定パッケージであるemcl2をROS 2に移行し、NAV2と組み合わせ、小型ロボットの自律移動
+    \item 本研究室の自己位置推定パッケージであるemcl2をROS 2に移行し、navigation2 と組み合わせ、小型ロボットの自律移動
   \end{itemize}
   \item むぎまるチーム
   \begin{itemize}
@@ -138,19 +138,20 @@ Laptop では自己位置推定，経路生成，経路追従などの主要と�
 
 % ここから新文 %
 
-\subsection{センシングからナビゲーションまでのシステム}\label{sub:localization}
+\subsection{たまチーム}\label{sub:localization}
 
 \subsubsection{使用したハードウェアとソフトウェア}
 
-たまチームは2次元のLiDARとIMUを搭載し、
-これらのセンサーデータをRaspberry Pi 4を介して搭載されたノートPCに送信する。
+たまチームは 2D LiDARとIMUを搭載し、
+これらのセンサーデータをRaspberry Pi 4B+を介して搭載されたノートPCに送信する。
 ノートPCではナビゲーションが実行され、
 その結果として得られた制御指令がRaspberry Pi 4に返される仕組みが構築されている。
-マッピングにはslam\_toolboxを利用し、ナビゲーションにはnavigation2を利用した。
+マッピングにはslam\_toolboxを利用し、
+ナビゲーションにはnavigation2を利用した。
 また、自己位置推定においては、
 昨年度まで利用されていたemcl2パッケージをROS 2に移行した、emcl2\_ros2利用している。
 
-\subsubsection{実験走行、本走行で見つかった課題}
+\subsubsection{実験走行・本走行で見つかった課題}
 
 
 \paragraph{ロボットの旋回による自己位置の破綻}
@@ -166,6 +167,8 @@ IMUから得られるヨー方向の角速度の積分値に置き換えた。
 その結果、
 ナビゲーション中には何度も障害物を回避しようとして旋回することがあったが、
 これらの旋回が自己位置推定の破綻には繋がらなかったという結果が得られた。
+
+
 IMUの搭載による効果は、
 マッピングの際にも確認できた。
 マップの取得では、
