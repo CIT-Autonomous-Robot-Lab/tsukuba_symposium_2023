@@ -16,7 +16,7 @@
 
 \eauthor{○Tatsuhiro IKEBE\eauthorrefmark{2}、Riku UCHIDA\eauthorrefmark{2}、Yuichiro HATANAKA\eauthorrefmark{1}、Atsuki USUI\eauthorrefmark{1}、Shimon SHOJI\eauthorrefmark{1}、Yamato MATSUI\eauthorrefmark{1}、Masamitsu YAMAZAKI\eauthorrefmark{1}、Leon TONOUCHI\eauthorrefmark{1}、\\Yasuo HAYASHIBARA\eauthorrefmark{1}、Ryuichi UEDA\eauthorrefmark{1}}
 
-\affiliation{千葉工業大学 未来ロボティクス学科 Cat Aチーム/Bチーム}
+\affiliation{千葉工業大学 未来ロボティクス学科 ツナチーム/たまチーム/むぎまるチーム}
 
 \begin{document}
 \maketitle
@@ -32,30 +32,27 @@
 「屋外で小型移動ロボットが安全に自律移動するためのシステムの構築」を目的として、
 千葉工業大学 未来ロボティクス学科 上田研究室 ツナチーム、たまチーム、むぎまるチームの
 計3チームで、つくばチャレンジ2023に参加した。
-あえて、小型な移動ロボットを使用する動機は、
+小型な移動ロボットをあえて使用する動機は、
 他のチームでは発見することのできない小型移動ロボットならではの
 問題を発見するためである。
 
-本年度は、ROS 2というソフトウェアフレームワークを各チーム用いた。
-昨年度までは、ROSを使用していたが、ROSの最終リリースであるROS Noetic Ninjemysが2025年5月に
-サポート終了を迎えることを受け、ROS 2への移行が必要となった。
-そこで、各チームのつくばチャレンジ2023での目標を、
+本年度は、ROS 2というソフトウェアフレームワークを３チーム全てで用いた。
+昨年度まではROSを使用していたが、ROSの最終リリースであるROS Noetic Ninjemysが2025年5月に
+サポート終了を迎えることを受け、ROS 2への移行が必要となった。他、各チームの具体的な目標を、
 
 \begin{itemize}
-  \item ツナチーム
-  \begin{itemize}
-    \item ROS 2実装での自作ナビゲーションスタックによる小型ロボットの自律移動
-  \end{itemize}
-  \item たまチーム
-  \begin{itemize}
-    \item 本研究室の自己位置推定パッケージであるemcl2をROS 2に移行し、navigation2 と組み合わせ、小型ロボットの自律移動
-  \end{itemize}
-  \item むぎまるチーム
-  \begin{itemize}
-    \item 比較的安価で小型である3次元LiDARを用いた自律移動システムの構築による、小型ロボットの自律移動
-  \end{itemize}
+  \item ツナチーム：ROS 2実装での自作ナビゲーションスタックを小型ロボットで実用
+  \item たまチーム：本研究室の自己位置推定パッケージであるemcl2\cite{emcl2}をROS 2に移行したものとnavigation2 を組み合わせて小型ロボットで実用
+  \item むぎまるチーム：比較的安価で小型である3次元LiDARを用いた自律移動システムを小型ロボットで実用
 \end{itemize}
 とした。
+本稿では、各チームで立てた目標ごとに行った取り組みについて説明する。
+本稿の構成は次の通りである。
+2章ではロボットの構成について説明をし、３章ではリタイヤの原因と
+ナビゲーションのソフトウェアで見つかった課題について説明をする。
+4章では結言を述べる。
+
+\section{各チームのロボットの構成}
 
 各チームで使用した機体を図\ref{fig:raspicat}に示す。
 センサ構成としては、各チームの機体に外界センサとして
@@ -66,11 +63,11 @@
 使用した機体のベースは、アールティ社製の既製品、Raspberry Pi Catである。
 
 \begin{figure}[h]
- 	\begin{center}
- 		% \includegraphics[width=1.0\linewidth]{figs/raspicat.pdf}
- 		\caption{Raspberry Pi Cat（上左: ツナチーム、上右: たまチーム、下左: むぎまるチーム）}
- 		\label{fig:raspicat}
- 	\end{center}
+  \begin{center}
+    % \includegraphics[width=1.0\linewidth]{figs/raspicat.pdf}
+    \caption{Raspberry Pi Cat（上左: ツナチーム、上右: たまチーム、下左: むぎまるチーム）}
+    \label{fig:raspicat}
+  \end{center}
 \end{figure}
 
 つくばチャレンジ2023での本走行の結果を表\ref{fig:main-run}に示す。
@@ -80,37 +77,18 @@
 \begin{table}[h]
   \caption{各チームの本走行の結果}
   \label{MainRun}
-	\begin{tabular}{|c|c|p{5.4cm}|}
+  \begin{tabular}{|c|c|p{4.0cm}|}
     \hline
-	チーム & 走行距離 & リタイアの理由 \\
+    チーム         & 走行距離 & リタイアの理由                                                                                             \\
     \hline
-  ツナチーム & 440[m] & 市役所前の横断歩道の横断後の障害物回避課題に失敗\\
+    ツナチーム     & 440[m]   & 市役所前の横断歩道の横断後の障害物回避課題に失敗                                                           \\
     \hline
-  たまチーム & 133[m] & 市役所西側曲がり角で坂道に足を取られ自己位置推定が破綻\\
+    たまチーム     & 133[m]   & 市役所西側曲がり角で坂道に車輪を取られ自己位置推定が破綻                                                   \\
     \hline
-  むぎまるチーム & --[m] & 市役所西曲がり角通過後，停止中の他チームのロボットの左側面に，本チームのロボットの右側面が接触する形で衝突\\
+    むぎまるチーム & --[m]    & 市役所西曲がり角通過後，停止中の他チームのロボットの左側面に，本チームのロボットの右側面が接触する形で衝突 \\
     \hline
   \end{tabular}
 \end{table}
-
-本稿では、各チームで立てた目標ごとに行った取り組み
-について説明する。
-本稿の構成は次の通りである。 
-2章ではリタイヤの原因について、
-3章ではロボットのシステムについて説明をし、
-ナビゲーションのソフトウェアで見つかった課題に
-ついて説明をする。 
-4章では結言を述べる。
-
-\section{本走行でのリタイアの原因}
-
-たまチームについては、表の通り、
-坂道において足を取られてしまい失敗した。
-坂道周辺では、植え込みを用いて自己位置推定を試みたが、
-マップを取得した際と本走行時で植え込みの状態が変化していたため、
-正確な自己位置の推定ができずに破綻してしまった。
-
-\section{ロボットのシステム}
 
 \subsection{むぎまるチーム}
 
@@ -130,12 +108,6 @@ Laptop では自己位置推定，経路生成，経路追従などの主要と�
 むぎまるチームでは，同所属のチームでは初めてとなる３次元 LiDAR を使用した自律移動システムを構築を行った．自律移動の手法としては，事前につくばチャレンジ確認走行区間の３次元地図を作成し，作成した３次元地図とリアルタイムに取得した３次元点群を NDT Scan Matching ベースの自己位置推定パッケージに入力し，推定した自己位置をナビゲーションパッケージに入力して自律移動を行うというものである．
 自己位置推定に使用するための３次元地図の作成には，fast lio という3D LiDAR を用いた慣性オドメトリパッケージを使用した．動作に必要なセンサデータや詳細な情報を図ｘに示す．自己位置推定には，Autoware Universe の localization パッケージである NDT Scan matcher と Ekf localizer を使用した．自己位置推定の動作に使用した入力データは，３次元点群地図，３次元センサ点群，IMUから取得した角速度，ホイールオドメトリである．詳細な入出力は図ｘに示す．経路生成・経路追従・障害物回避には，Navigation2 を使用した．経路生成には自己位置推定で得られた自己位置と，３次元地図から生成した２次元地図を入力データとして使用した．３次元地図から２次元地図の生成には，pcd2pgm というパッケージを使用した．[図ｘ] 障害物回避には，３次元センサ点群を入力データとして使用した．
 
-\subsubsection{本走行・実験走行で見つかった課題}
-
-むぎまるチームの本走行・実験走行で見つかった課題は，障害物回避の失敗，３次元地図と２次元地図のズレ，消費電力の大きさである．障害物回避の失敗については「リタイアの原因」の章で記述したとおりである．本チームでは自己位置推定に使用する地図には，３次元点群地図を使用し，ナビゲーションには２次元の占有格子地図を使用している．２次元の占有格子地図は３次元地図を元に生成しているのだが，３次元上の障害物を２次元上に投影する際に，坂のある地形ではねじれによるズレが生じる．３次元点群地図では，ロール方向のねじれと，ピッチ方向のねじれが存在するため，必然的に２次元上に投影すると，平面方向にズレが生じる．本チームではロボットの自律移動の動作確認を，あまり坂道の存在しない環境で行っていたため，つくばチャレンジでの環境と想定以上の差が生まれてしまった．[図ｘ] 
-
-最後に消費電力についてだが，むぎまるチームでは主要となる計算機である Laptop の消費電力がどう所属の他チームに比べて大きい．３次元点群ベースの自己位置推定を行っているため，CPU使用率も高く仕方ない部分もあると考えるが，処理の軽量化も課題となるだろう．
-
 % ここから新文 %
 
 \subsection{たまチーム}\label{sub:localization}
@@ -151,9 +123,20 @@ Laptop では自己位置推定，経路生成，経路追従などの主要と�
 また、自己位置推定においては、
 昨年度まで利用されていたemcl2パッケージをROS 2に移行した、emcl2\_ros2利用している。
 
-\subsubsection{実験走行・本走行で見つかった課題}
+\section{本走行でのリタイアの原因}
 
+たまチームについては、表の通り、
+坂道において車輪を取られてしまい失敗した。
+坂道周辺では植え込みを用いて自己位置推定を試みたが失敗してしまった。
 
+\subsection{むぎまるチーム}
+\subsubsection{本走行・実験走行で見つかった課題}
+
+むぎまるチームの本走行・実験走行で見つかった課題は，障害物回避の失敗，３次元地図と２次元地図のズレ，消費電力の大きさである．障害物回避の失敗については「リタイアの原因」の章で記述したとおりである．本チームでは自己位置推定に使用する地図には，３次元点群地図を使用し，ナビゲーションには２次元の占有格子地図を使用している．２次元の占有格子地図は３次元地図を元に生成しているのだが，３次元上の障害物を２次元上に投影する際に，坂のある地形ではねじれによるズレが生じる．３次元点群地図では，ロール方向のねじれと，ピッチ方向のねじれが存在するため，必然的に２次元上に投影すると，平面方向にズレが生じる．本チームではロボットの自律移動の動作確認を，あまり坂道の存在しない環境で行っていたため，つくばチャレンジでの環境と想定以上の差が生まれてしまった．[図ｘ]
+
+最後に消費電力についてだが，むぎまるチームでは主要となる計算機である Laptop の消費電力がどう所属の他チームに比べて大きい．３次元点群ベースの自己位置推定を行っているため，CPU使用率も高く仕方ない部分もあると考えるが，処理の軽量化も課題となるだろう．
+
+\subsection{たまチーム}
 \paragraph{ロボットの旋回による自己位置の破綻}
 
 
@@ -192,8 +175,8 @@ IMUを搭載してマッピングを行ったが、
 問題の原因を究明し、
 本質的な解決策を見つける必要がある。
 
-\section{結言}
 
+\section{結言}
 \section*{謝辞}
 
 %↑上田整理。あと、著者に名前を連ねない人がいたらここに書くと良いです。
@@ -203,65 +186,65 @@ IMUを搭載してマッピングを行ったが、
 \footnotesize
 \begin{thebibliography}{99}
   \bibitem{ROS}
-	  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,'' 
-Open-Source Software workshop of the International Conference on Robotics and Automation、2009. 
+  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,''
+  Open-Source Software workshop of the International Conference on Robotics and Automation、2009.
 
-\bibitem{fox2003}
-Dieter Fox:
-``Adapting the Sample Size in Particle Filters Through KLD-Sampling,''
-International Journal of Robotics Research、Vol. 22、No. 12、pp. 985-1003、2003. 
+  \bibitem{fox2003}
+  Dieter Fox:
+  ``Adapting the Sample Size in Particle Filters Through KLD-Sampling,''
+  International Journal of Robotics Research、Vol. 22、No. 12、pp. 985-1003、2003.
 
-\bibitem{gutmann2002}
-Jens-Steffen Gutmann and Dieter Fox: 
-``An Experimental Comparison of Localization Methods Continued,''
-Proc. of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),pp. 454-459、2002.
-  
-% \bibitem{ueda2002tdp}
-% 	Ryuichi Ueda {\it et al.}: 
-% ``Team description of Team ARAIBO,'' 
-% Proc. of 2002 International RoboCup Symposium、2002. 
+  \bibitem{gutmann2002}
+  Jens-Steffen Gutmann and Dieter Fox:
+  ``An Experimental Comparison of Localization Methods Continued,''
+  Proc. of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),pp. 454-459、2002.
+
+  % \bibitem{ueda2002tdp}
+  % 	Ryuichi Ueda {\it et al.}: 
+  % ``Team description of Team ARAIBO,'' 
+  % Proc. of 2002 International RoboCup Symposium、2002. 
 
   % \bibitem{ueda2004iros}
-	% Ryuichi Ueda {\it et al.}: 
+  % Ryuichi Ueda {\it et al.}: 
   % ``Expansion Resetting for Recovery from Fatal Error in Monte Carlo Localization -- Comparison with Sensor Resetting Methods,'' Proc．of IROS，pp.2481--2486，2004．
-  
+
   % \bibitem{map2gazebo}
   % Shiloh Curtis: ``shilohc/map2gazebo''，\url{https://github.com/shilohc/map2gazebo} (last visit: 2021-12-31)．
-  
+
   % \bibitem{move_base}
   % Eitan Marder-Eppstein: ``move\_base,'' \url{http://wiki.ros.org/move_base} (last visit: 2021-12-31)．
-  
+
   \bibitem{amcl}
   Brian Gerkey: ``amcl,'' \url{https://wiki.ros.org/amcl} (last visit: 2021-12-31)．
 
   \bibitem{gmapping}
   Brian Gerkey: ``gmapping,'' \url{http://wiki.ros.org/gmapping} (last visit: 2021-12-31)．
-  
+
   % \bibitem{GIMP}
   % GIMP.org: ``GIMP,'' \url{https://www.gimp.org/} (last visit: 2021-12-31)．
-  
-\bibitem{emcl2}
-Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2} (last visit: 2022-12-12).
 
-\bibitem{pfc}
-	Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
+  \bibitem{emcl2}
+  Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2} (last visit: 2022-12-12).
+
+  \bibitem{pfc}
+  Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
 
   \bibitem{raspicat}
   Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
-  
+
   \bibitem{youtube}
   BEIKE: ``つくばチャレンジ2022 実験走行 11/19 スタートからゴールまで自律移動（神の手4回）,'' \url{https://www.youtube.com/watch?v=3gpjVhRIJDY} (last visit: 2022-12-12)．
   % \bibitem{raspicat_rosbag}
   % Tatsuhiro Ikebe: ``uhobeike/raspicat\_rosbag,'' \url{https://github.com/uhobeike/raspicat_rosbag} (last visit: 2021-12-31)．
 
   \bibitem{池邉2021}
- 池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
+  池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
 
-% \bibitem{上田2019}
-% 上田 隆一: ``詳解確率ロボティクス''、講談社、2019.
+  % \bibitem{上田2019}
+  % 上田 隆一: ``詳解確率ロボティクス''、講談社、2019.
 
-%   \bibitem{上田2020}
-%  上田隆一，鈴木勇矢: 自己位置が不確かな状況における移動ロボットの危険回避行動の生成，第38回日本ロボット学会学術講演会予稿集，pp．RSJ2020AC2C2-02，オンライン開催，2020.
+  %   \bibitem{上田2020}
+  %  上田隆一，鈴木勇矢: 自己位置が不確かな状況における移動ロボットの危険回避行動の生成，第38回日本ロボット学会学術講演会予稿集，pp．RSJ2020AC2C2-02，オンライン開催，2020.
 
   % \bibitem{地図合成}
   % 川合隆太他: ``産業技術大学院大学における自律移動ロボット「産技大2号」の開発''，2019年度つくばチャレンジシンポジウム、pp.4-7、2020.
@@ -271,27 +254,27 @@ Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2}
   % RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2021-12-31)
 
   % \bibitem{aws2020}
-	%   CIT自律ロボット研究室: ``AWSロボットデリバリーチャレンジで本研究室メンバーが優勝,'' \url{https://lab.ueda.tech/?post=20200915_aws_challenge} (last visit 2022-01-04)
+  %   CIT自律ロボット研究室: ``AWSロボットデリバリーチャレンジで本研究室メンバーが優勝,'' \url{https://lab.ueda.tech/?post=20200915_aws_challenge} (last visit 2022-01-04)
 
   % \bibitem{学科サイト}
-	%   千葉工業大学先進工学部未来ロボティクス学科: ``AWS Robot Delivery Challenge 2021 準優勝''、\url{https://www.robotics.it-chiba.ac.jp/j/?p=838} (last visit 2022-01-04)
-  
+  %   千葉工業大学先進工学部未来ロボティクス学科: ``AWS Robot Delivery Challenge 2021 準優勝''、\url{https://www.robotics.it-chiba.ac.jp/j/?p=838} (last visit 2022-01-04)
+
   % \bibitem{つくばチャレンジロボット仕様}
   % つくばチャレンジ実行委員会事務局：``つくばチャレンジ 2021 ロボット仕様条件''，
   % \url{https://tsukubachallenge.jp/2021/regulations/specs} (last visit 2021-12-31)
-  
+
   % \bibitem{UST-30LX}
   % 北陽電機株式会社：``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
-  
+
   % \bibitem{Turtlebot3 Burger}
   % 株式会社ロボティズ： ``Turtlebot3 Burgerの仕様''，\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/features/} (last visit: 2022-1-3)．
-  
+
   % \bibitem{つくばチャレンジ公式記録}
   % つくばチャレンジ実行委員会事務局：``つくばチャレンジ2021の走行結果''，
   % \url{https://tsukubachallenge.jp/2021/records/final} (last visit 2021-12-31)
 
   % \bibitem{出野畑中}
-	%   畑中 優一郎，出野 廣太郎，上田 隆一：``Raspberry Pi 3BのみでRaspberry Pi Catのナビゲーション（屋内環境編）''，CIT自律ロボット研究室，\url{https://lab.ueda.tech/?post=20211210} (last visit 2022-01-02)
+  %   畑中 優一郎，出野 廣太郎，上田 隆一：``Raspberry Pi 3BのみでRaspberry Pi Catのナビゲーション（屋内環境編）''，CIT自律ロボット研究室，\url{https://lab.ueda.tech/?post=20211210} (last visit 2022-01-02)
 \end{thebibliography}
 \normalsize
 
