@@ -30,5 +30,5 @@ make clean
 
 ## 締め切りについて
 
-URLはあるが、詳細がかかれていない。（2023/12/5）  
+2024/1/12締切（2024/1/3）  
 [第17回つくばチャレンジシンポジウム](https://tsukubachallenge.jp/2023/about/symposium)
