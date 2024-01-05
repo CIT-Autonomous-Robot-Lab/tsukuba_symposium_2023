@@ -12,7 +12,8 @@
 \author{○池邉　龍宏\authorrefmark{2}、内田　璃空\authorrefmark{2}、畑中　優一郎\authorrefmark{1}、臼井　温希\authorrefmark{1}、庄司　史門\authorrefmark{1}、松井　大和\authorrefmark{1}、\\
 山崎　政光\authorrefmark{1}、登内　リオン\authorrefmark{1}、林原　靖男\authorrefmark{1}、上田　隆一\authorrefmark{1}}
 
-\etitle{Participation report in the Tsukuba Challenge 2023\\using a small mobile robot}
+%\etitle{Participation report in the Tsukuba Challenge 2023\\using a small mobile robot}
+\etitle{Development for Tsukuba Challenge 2023\\with small mobile robots}
 
 \eauthor{○Tatsuhiro IKEBE\eauthorrefmark{2}、Riku UCHIDA\eauthorrefmark{2}、Yuichiro HATANAKA\eauthorrefmark{1}、Atsuki USUI\eauthorrefmark{1}、Shimon SHOJI\eauthorrefmark{1}、Yamato MATSUI\eauthorrefmark{1}、Masamitsu YAMAZAKI\eauthorrefmark{1}、Leon TONOUCHI\eauthorrefmark{1}、\\Yasuo HAYASHIBARA\eauthorrefmark{1}、Ryuichi UEDA\eauthorrefmark{1}}
 
@@ -63,12 +64,14 @@
 センサ構成としては、各チームの機体に外界センサとして
 2次元LiDAR、3次元LiDAR、内界センサとしてIMUを搭載した。
 %昨年は、計算機としてRaspberry Pi 4 Model Bを使用していたが、
-昨年は、1チームが計算機としてRaspberry Pi 4 Model Bを使用していたが、
+昨年は、1チームが計算機としてRaspberry Pi 4 Model Bを使用していたが\cite{池邉2022}、
 %今年は、ROS 2の移行段階であったため、ノートPCを各機体に搭載し、
-今年はROS 2の移行段階であったため、ノートPCを各機体に搭載し、
+今年はROS 2の移行段階であったため、ノートPCを各機体に搭載して、
 %負荷の高い処理をノートPC上で行った。
-負荷の高い、マッピングやナビゲーションの計算を、ノートPC上で行った。
-使用した機体のベースは、アールティ社製の既製品、Raspberry Pi Catである。
+%負荷の高い、マッピングやナビゲーションの計算を、ノートPC上で行った。
+マッピングやナビゲーションの計算を行った。
+%使用した機体のベースは、アールティ社製の既製品、Raspberry Pi Catである。
+機体のベースには、アールティ社製の既製品である、Raspberry Pi Catを使用した。
 
 \begin{figure}[h]
   \begin{center}
@@ -219,19 +222,19 @@ IMUを搭載してマッピングを行ったが、
 % \small
 \footnotesize
 \begin{thebibliography}{99}
-  \bibitem{ROS}
-  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,''
-  Open-Source Software workshop of the International Conference on Robotics and Automation、2009.
+  %\bibitem{ROS}
+  %Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,''
+  %Open-Source Software workshop of the International Conference on Robotics and Automation、2009.
 
-  \bibitem{fox2003}
-  Dieter Fox:
-  ``Adapting the Sample Size in Particle Filters Through KLD-Sampling,''
-  International Journal of Robotics Research、Vol. 22、No. 12、pp. 985-1003、2003.
+  %\bibitem{fox2003}
+  %Dieter Fox:
+  %``Adapting the Sample Size in Particle Filters Through KLD-Sampling,''
+  %International Journal of Robotics Research、Vol. 22、No. 12、pp. 985-1003、2003.
 
-  \bibitem{gutmann2002}
-  Jens-Steffen Gutmann and Dieter Fox:
-  ``An Experimental Comparison of Localization Methods Continued,''
-  Proc. of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),pp. 454-459、2002.
+  %\bibitem{gutmann2002}
+  %Jens-Steffen Gutmann and Dieter Fox:
+  %``An Experimental Comparison of Localization Methods Continued,''
+  %Proc. of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),pp. 454-459、2002.
 
   % \bibitem{ueda2002tdp}
   % 	Ryuichi Ueda {\it et al.}: 
@@ -248,31 +251,35 @@ IMUを搭載してマッピングを行ったが、
   % \bibitem{move_base}
   % Eitan Marder-Eppstein: ``move\_base,'' \url{http://wiki.ros.org/move_base} (last visit: 2021-12-31)．
 
-  \bibitem{amcl}
-  Brian Gerkey: ``amcl,'' \url{https://wiki.ros.org/amcl} (last visit: 2021-12-31)．
+  %\bibitem{amcl}
+  %Brian Gerkey: ``amcl,'' \url{https://wiki.ros.org/amcl} (last visit: 2021-12-31)．
 
-  \bibitem{gmapping}
-  Brian Gerkey: ``gmapping,'' \url{http://wiki.ros.org/gmapping} (last visit: 2021-12-31)．
+  %\bibitem{gmapping}
+  %Brian Gerkey: ``gmapping,'' \url{http://wiki.ros.org/gmapping} (last visit: 2021-12-31)．
 
   % \bibitem{GIMP}
   % GIMP.org: ``GIMP,'' \url{https://www.gimp.org/} (last visit: 2021-12-31)．
 
-  \bibitem{emcl2}
-  Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2} (last visit: 2022-12-12).
+  %\bibitem{emcl2}
+  %Ryuichi Ueda: ``ryuichiueda/emcl2,''\\\url{https://github.com/ryuichiueda/emcl2} (last visit: 2022-12-12).
 
-  \bibitem{pfc}
-  Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
+  %\bibitem{pfc}
+  %Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
 
-  \bibitem{raspicat}
-  Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
+  %\bibitem{raspicat}
+  %Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
 
-  \bibitem{youtube}
-  BEIKE: ``つくばチャレンジ2022 実験走行 11/19 スタートからゴールまで自律移動（神の手4回）,'' \url{https://www.youtube.com/watch?v=3gpjVhRIJDY} (last visit: 2022-12-12)．
+  %\bibitem{youtube}
+  %BEIKE: ``つくばチャレンジ2022 実験走行 11/19 スタートからゴールまで自律移動（神の手4回）,'' \url{https://www.youtube.com/watch?v=3gpjVhRIJDY} (last visit: 2022-12-12)．
+
   % \bibitem{raspicat_rosbag}
   % Tatsuhiro Ikebe: ``uhobeike/raspicat\_rosbag,'' \url{https://github.com/uhobeike/raspicat_rosbag} (last visit: 2021-12-31)．
 
-  \bibitem{池邉2021}
-  池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
+  %\bibitem{池邉2021}
+  %池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
+
+  \bibitem{池邉2022}
+  池邉 龍宏，内田 璃空，畑中 優一郎，臼井 温希，庄司 史門，松井 大和，山崎 政光，登内 リオン，林原 靖男，上田 隆一: Raspberry Pi のみを計算に用いる小型移動ロボットでのつくばチャレンジ 2022 参加レポート，つくばチャレンジ2022シンポジウム予稿集，2022．
 
   % \bibitem{上田2019}
   % 上田 隆一: ``詳解確率ロボティクス''、講談社、2019.
