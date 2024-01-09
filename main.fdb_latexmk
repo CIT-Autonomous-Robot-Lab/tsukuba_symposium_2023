@@ -1,0 +1,23 @@
+# Fdb version 3
+["pdflatex"] 1704798256 "/home/nacky/git/tsukuba_symposium_2023/main.tex" "main.pdf" "main" 1704798256
+  "/etc/texmf/web2c/texmf.cnf" 1701857068 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/nacky/git/tsukuba_symposium_2023/main.tex" 1704798256 22345 63a91e7bc3221b9340b9ff9a9a935410 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty" 1579038678 6078 f1cb470c9199e7110a27851508ed7a5c ""
+  "/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty" 1603745920 67929 d50ae850e1d9604065e8337a75a41029 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics-def/dvipdfmx.def" 1616189247 12854 d1d8e11aeb3b6a981367508e762ca48a ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty" 1622581934 18399 7e40f80366dffb22c0e7b70517db5cb4 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty" 1636758526 7996 a8fb260d598dcaf305a7ae7b9c3e3229 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty" 1622581934 2671 4de6781a30211fe0ea4c672e4a2a8166 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty" 1636758526 4009 187ea2dc3194cd5a76cd99a8d7a6c4d0 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty" 1158586182 21369 9ef165ca6df8815c92e693146a376c92 ""
+  "/usr/share/texlive/texmf-dist/tex/platex/jsclasses/jsarticle.cls" 1625175385 60810 5a58feea6fbea0a330b0ddfb4da256c4 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1702372632 2800292 418899b68115a19e85bec0238e2ae53c ""
+  "jsproceedings.cls" 1701856761 23503 31ea80bc6a420cac8ffa562f1f435009 ""
+  "main.aux" 1704798256 32 3985256e7290058c681f74d7a3565a19 ""
+  "main.tex" 1704798256 22345 63a91e7bc3221b9340b9ff9a9a935410 ""
+  (generated)
+  "main.log"
+  "main.pdf"
