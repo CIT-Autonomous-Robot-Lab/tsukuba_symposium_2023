@@ -127,14 +127,14 @@ Raspberry Piは，速度司令のみをラップトップPCから入力し，Ras
 3次元LiDARのスキャンデータとのマッチングにより求めた自己位置
 をもとに自律走行を行うものである．
 走行区間の3次元環境地図の作成には，FAST-LIOというLiDAR慣性オドメトリパッケージ
-を使用した．[図:fast_lio package & inout]
+を使用した．図:fast_lio package & inout
 自己位置推定には，Autoware Universeの自己位置推定パッケージである，
-ndt_scan_matcherとekf_localizerを使用した．[図:autoware inout]
-経路計画と障害物回避には，Navigation2を使用した．[図:navigation2]
+ndt_scan_matcherとekf_localizerを使用した．図:autoware inout
+経路計画と障害物回避には，Navigation2を使用した．図:navigation2
 経路計画は2次元環境地図上で行い，推定した自己位置のx方向，y方向の情報のみを
 使用した．その際に必要になった2次元環境地図の作成には，pcd2pgmという
 PCD形式の3次元地図から2次元地図を生成可能なパッケージを使用した．
-[図:pcd2pgm]
+図:pcd2pgm
 
 % ここから新文 %
 
