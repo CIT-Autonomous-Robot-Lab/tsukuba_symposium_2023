@@ -4,6 +4,7 @@
 % \usepackage{flushend}  % 最終ページの2カラムの左右の高さを揃える
 \usepackage{here} %図の場所の指定で[h]（ここに貼る）を指定するためのパッケージ
 \usepackage[dvipdfmx]{graphicx} %dvipdfmxはjpgやpngの張り込みのために使用
+\usepackage{graphicx}
 
 
 % タイトル
@@ -138,6 +139,14 @@ ndt\_scan\_matcherとekf\_localizerを使用した．
 PCD形式の3次元地図から2次元地図を生成可能なパッケージを使用した．
 図 pcd2pgm
 
+\begin{figure}[h]
+  \begin{center}
+      \includegraphics[width=1.0\linewidth]{figs/mugimaru_system.png}
+      \caption{むぎまるチームのシステム構成}
+      \label{fig:mugimaru_system}
+  \end{center}
+\end{figure}
+
 % ここから新文 %
 
 \subsection{たまチーム}\label{sub:localization}
@@ -166,7 +175,7 @@ PCD形式の3次元地図から2次元地図を生成可能なパッケージを
 %\section{本走行でのリタイアの原因}
 \section{本走行の結果}
 
-つくばチャレンジ2023での本走行の結果を表\ref{fig:main-run}に示す。
+つくばチャレンジ2023での本走行の結果を表\ref{MainRun}に示す。
 
 \begin{table}[h]
   \caption{各チームの本走行の結果}
@@ -184,13 +193,13 @@ PCD形式の3次元地図から2次元地図を生成可能なパッケージを
   \end{tabular}
 \end{table}
 
-@@@ここの2段落、中途半端なので3.1以降に入れるか、しっかり概要を説明する@@@
-ツナチームは確認走行区間を走りきったが、最後の障害物回避の課題で、
-障害物を回避できず衝突し、失敗した。
+%@@@ここの2段落、中途半端なので3.1以降に入れるか、しっかり概要を説明する@@@
+%ツナチームは確認走行区間を走りきったが、最後の障害物回避の課題で、
+%障害物を回避できず衝突し、失敗した。
 
-たまチームについては、表の通り、
-坂道において車輪を取られてしまい失敗した。
-坂道周辺では植え込みを用いて自己位置推定を試みたが失敗してしまった。
+%たまチームについては、表の通り、
+%坂道において車輪を取られてしまい失敗した。
+%坂道周辺では植え込みを用いて自己位置推定を試みたが失敗してしまった。
 
 \subsection{むぎまるチーム}
 \subsubsection{本走行・実験走行で見つかった課題}
