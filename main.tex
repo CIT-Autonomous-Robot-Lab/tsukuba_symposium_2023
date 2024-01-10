@@ -179,6 +179,28 @@ PCD形式の3次元地図から2次元地図を生成可能なパッケージを
     \end{center}
 \end{figure}
 
+\subsection{ツナチーム}
+
+\subsubsection{概要}
+ツナチームは、ROS 2による自作ナビゲーションスタックを作成し、
+図の小型移動ロボット上で動作させ、自律走行をさせることを目的とした。
+作成した自作ナビゲーションスタックは、uhobeike/ike\_nav\cite{ike_nav}
+というリポジトリ名でGitHub上に公開している。
+このパッケージは、「Nav2のような複雑な
+システムでは無く、シンプルで修正しやすいパッケージの作成したい」という
+モチベーションの基に作成した。
+例えば、つくばチャレンジ中に何か解決したい問題が発生し、
+ソフトウェア上で解決したいとなった場合に、
+パラメータやコードに対して手を入れやすいメリットがあると考えている。
+uhobeike/ike\_navの作成に関する詳細については、
+「自作ナビゲーションスタックでつくばチャレンジ2023に挑戦してみた話」
+\cite{ike_nav_detail}にてまとめられている。
+
+\subsubsection{使用したハードウェア}
+
+\subsubsection{ike\_navのシステム構成}
+
+
 
 %\section{本走行でのリタイアの原因}
 \section{本走行の結果}
@@ -338,9 +360,9 @@ Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,''\url{https://github.com/C
   % \bibitem{地図合成}
   % 川合隆太他: ``産業技術大学院大学における自律移動ロボット「産技大2号」の開発''，2019年度つくばチャレンジシンポジウム、pp.4-7、2020.
 
-\bibitem{RTshop}
-株式会社アールティ：``Raspberry Pi Cat 屋外でも動かせる中型2輪ロボット''，
-RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2024-01-05)
+  \bibitem{RTshop}
+  株式会社アールティ：``Raspberry Pi Cat 屋外でも動かせる中型2輪ロボット''，
+  RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2024-01-05)
 
   % \bibitem{aws2020}
   %   CIT自律ロボット研究室: ``AWSロボットデリバリーチャレンジで本研究室メンバーが優勝,'' \url{https://lab.ueda.tech/?post=20200915_aws_challenge} (last visit 2022-01-04)
@@ -364,6 +386,13 @@ RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (las
 
   % \bibitem{出野畑中}
   %   畑中 優一郎，出野 廣太郎，上田 隆一：``Raspberry Pi 3BのみでRaspberry Pi Catのナビゲーション（屋内環境編）''，CIT自律ロボット研究室，\url{https://lab.ueda.tech/?post=20211210} (last visit 2022-01-02)
+
+  \bibitem{ike_nav}
+  Tatsuhiro Ikebe: ``uhobeike/ike\_nav,''\url{https://github.com/uhobeike/ike_nav} (last visit: 2024-01-10).
+
+  \bibitem{ike_nav_detail}
+  Qiita：``自作ナビゲーションスタックでつくばチャレンジ2023に挑戦してみた話''，
+  \url{https://qiita.com/BEIKE/items/f3ff141cc25d49c01363} (last visit 2023-1-10)
 \end{thebibliography}
 \normalsize
 
