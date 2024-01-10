@@ -10,3 +10,5 @@ main.pdf
 *.ind
 tmp.*
 *.synctex.gz
+*.fdb_latexmk
+*.fls
