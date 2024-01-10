@@ -1,12 +1,12 @@
 # Fdb version 3
-["dvipdf"] 1704854897 "/home/shoji/tsukuba_symposium_2023/main.dvi" "/home/shoji/tsukuba_symposium_2023/main.pdf" "/home/shoji/tsukuba_symposium_2023/main" 1704854908
-  "/home/shoji/tsukuba_symposium_2023/main.dvi" 1704854897 20536 5ebde006c526ea5738b455ff8f33d6ed "latex"
+["dvipdf"] 1704870705 "/home/shoji/tsukuba_symposium_2023/main.dvi" "/home/shoji/tsukuba_symposium_2023/main.pdf" "/home/shoji/tsukuba_symposium_2023/main" 1704870705
+  "/home/shoji/tsukuba_symposium_2023/main.dvi" 1704870705 20856 e714213273b1a462fc9bccae8786c9bf "latex"
   (generated)
   "/home/shoji/tsukuba_symposium_2023/main.pdf"
-["latex"] 1704854897 "/home/shoji/tsukuba_symposium_2023/main.tex" "/home/shoji/tsukuba_symposium_2023/main.dvi" "main" 1704854908
+["latex"] 1704870704 "/home/shoji/tsukuba_symposium_2023/main.tex" "/home/shoji/tsukuba_symposium_2023/main.dvi" "main" 1704870705
   "/etc/texmf/web2c/texmf.cnf" 1701160243 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/shoji/tsukuba_symposium_2023/main.aux" 1704854897 2727 a7f3acae696ec0675cbcc34e1053886c ""
-  "/home/shoji/tsukuba_symposium_2023/main.tex" 1704854908 22861 88d2f9484478af32e4fa1cb18ee6f7a2 ""
+  "/home/shoji/tsukuba_symposium_2023/main.aux" 1704870705 2919 c0ac550ad7bec12b1c92a1d8fcdf0422 ""
+  "/home/shoji/tsukuba_symposium_2023/main.tex" 1704870703 23096 20616d9f336012db08b48b4708569451 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm" 1136768653 6880 f19b8995b61c334d78fc734065f6b4d4 ""
@@ -116,14 +116,15 @@
   "/usr/share/texmf/tex/latex/lm/t1lmtt.fd" 1256929440 2681 354015af3b61e7be30009f084986375a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/web2c/eptex/platex.fmt" 1701160393 10603489 333563042dbbd8ff150b4731ba1d0059 ""
-  "figs/mugimaru_system.png" 1704854356 154726 0cdab011311b3a0f208cd32329306d0b ""
-  "figs/tama_system_diagram.pdf" 1704853716 66077 927b2aab1996e3ddce7aa802b1fa3b5a ""
-  "jsproceedings.cls" 1702446704 23503 31ea80bc6a420cac8ffa562f1f435009 ""
-  "main.aux" 1704854897 2727 a7f3acae696ec0675cbcc34e1053886c "latex"
-  "main.tex" 1704854908 22861 88d2f9484478af32e4fa1cb18ee6f7a2 ""
+  "figs/mugimaru_hard.pdf" 1704870511 569491 6db9bbc2ee796dbce1d88422708e35ee ""
+  "figs/mugimaru_system.pdf" 1704862439 65846 e73be83bcd878c4409e63bcaec1a463c ""
+  "figs/tama_system_diagram.pdf" 1704862605 66077 927b2aab1996e3ddce7aa802b1fa3b5a ""
+  "jsproceedings.cls" 1704862605 23503 31ea80bc6a420cac8ffa562f1f435009 ""
+  "main.aux" 1704870705 2919 c0ac550ad7bec12b1c92a1d8fcdf0422 "latex"
+  "main.tex" 1704870703 23096 20616d9f336012db08b48b4708569451 ""
   (generated)
   "main.aux"
-  "main.log"
-  "/home/shoji/tsukuba_symposium_2023/main.dvi"
-  "main.dvi"
   "/home/shoji/tsukuba_symposium_2023/main.log"
+  "main.dvi"
+  "/home/shoji/tsukuba_symposium_2023/main.dvi"
+  "main.log"

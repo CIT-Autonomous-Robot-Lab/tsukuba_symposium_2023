@@ -322,8 +322,10 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
 OUTPUT /home/shoji/tsukuba_symposium_2023/main.dvi
-INPUT /home/shoji/tsukuba_symposium_2023/figs/mugimaru_system.png
-INPUT extractbb -B cropbox -O figs/mugimaru_system.png
+INPUT /home/shoji/tsukuba_symposium_2023/figs/mugimaru_system.pdf
+INPUT extractbb -B cropbox -O figs/mugimaru_system.pdf
+INPUT /home/shoji/tsukuba_symposium_2023/figs/mugimaru_hard.pdf
+INPUT extractbb -B cropbox -O figs/mugimaru_hard.pdf
 INPUT /home/shoji/tsukuba_symposium_2023/figs/tama_system_diagram.pdf
 INPUT extractbb -B cropbox -O figs/tama_system_diagram.pdf
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
