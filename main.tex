@@ -197,9 +197,54 @@ uhobeike/ike\_navの作成に関する詳細については、
 \cite{ike_nav_detail}にてまとめられている。
 
 \subsubsection{使用したハードウェア}
+ツナチームでは、図の機体を自律走行させた。
+機体には、2つのコンピュータが搭載されている。
+一つ目は、計算用として、ノートPCを搭載した。
+このノートPC上でike\_navを動作させた。
+二つ目は、機体の制御用として、Raspberry Pi 4B+を搭載した。
+
+観測用のセンサは、2次元LiDARであるUST-30LX\cite{UST-30LX}を搭載した。
+このLiDARの捜査角度は、270[deg]であり、最大検出距離は60[m]である。
+
 
 \subsubsection{ike\_navのシステム構成}
 
+作成したike\_navのシステム構成について説明をする。
+図に、ike\_navのシステム構成を示す。
+ike\_navは、地図、2次元LiDARからの観測情報、
+ロボットのオドメトリを入力し、ある目標地点まで到達するための
+速度および推定した自己位置を出力する。
+
+ike\_navは、メタパッケージであり、
+ロボットの自律走行に必要な技術である、
+自己位置推定、経路計画、経路追従などがそれぞれ別々にパッケージ化されている。
+ロボットが自律走行をするのに、
+強く関わりがあるパッケージを列挙すると以下のとおりである。
+
+\begin{description}
+  \item[・ike\_controller（経路追従）:]経路、推定位置を入力し、速度を出力
+  \item[・ike\_costmap\_2d（コストマップの管理）:]地図、観測情報を入力し、コストマップを出力
+  \item[・ike\_localization（自己位置推定）:]観測情報、地図、ロボットのオドメトリを入力し、自己位置を出力
+  \item[・ike\_map\_server（地図の管理）:]pgmなどのデータからROS 2の占有格子地図を出力
+  \item[・ike\_nav\_server（目標地点までの管理）:]目標地点を入力し、到達するまでの管理をする
+  \item[・ike\_planner（経路計画）:]コストマップ、推定位置を入力し、経路を出力
+  \item[・ike\_waypoint\_follower（複数目標地点の管理）:]事前に設定した目標地点を辿るように管理をする
+\end{description}
+
+以上の中でもアルゴリズムや手法が含まれているパッケージについて詳しく説明する。
+まず、ike\_localizationであるが、自己位置推定の手法として、
+モンテカルロ自己位置推定法（MCL: Monte Carlo Localization）を実装した。
+MCLは、比較的実装が容易である上に、
+環境における不確実性に強くロバスト性があるため採用をした。
+次にike\_planner（経路計画）であるが、経路計画のためにA*を実装した。
+A*は、最短経路を導出するアルゴリズムであり、他の最短経路法であるダイクストラ法よりも
+速く最短経路を導出することができるため採用した。
+また実装したA*では、センサから観測した障害物をコストとして、障害物を回避させるような
+経路を導出するように実装した。
+最後に、ike\_controller（経路追従）であるが、経路追従の手法として、
+モデル予測制御(MPC: Model Predictive Control)を実装した。
+MPCは、他の追従手法と比較して、計算コストが高いというデメリットがあるが、
+経路に対する追従性が高いというメリットがあるため採用した。
 
 
 %\section{本走行でのリタイアの原因}
@@ -374,8 +419,8 @@ Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,''\url{https://github.com/C
   % つくばチャレンジ実行委員会事務局：``つくばチャレンジ 2021 ロボット仕様条件''，
   % \url{https://tsukubachallenge.jp/2021/regulations/specs} (last visit 2021-12-31)
 
-  % \bibitem{UST-30LX}
-  % 北陽電機株式会社：``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
+  \bibitem{UST-30LX}
+  北陽電機株式会社：``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
 
   % \bibitem{Turtlebot3 Burger}
   % 株式会社ロボティズ： ``Turtlebot3 Burgerの仕様''，\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/features/} (last visit: 2022-1-3)．
