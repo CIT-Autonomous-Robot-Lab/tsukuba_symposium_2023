@@ -57,7 +57,7 @@
 
 \section{各チームのロボットの構成}
 
-各チームで使用した機体を図\ref{tuna}~\ref{mugi}に示す。
+各チームで使用した機体を図\ref{fig:robot}に示す。
 センサ構成としては、各チームの機体に外界センサとして
 2次元LiDAR、3次元LiDAR、内界センサとしてIMUを搭載した。
 昨年は、1チームが計算機としてRaspberry Pi 4 Model Bを使用していたが\cite{池邉2022}、
@@ -65,28 +65,35 @@
 マッピングやナビゲーションの計算を行った。
 機体のベースには、アールティ社製の既製品であるRaspberry Pi Cat\cite{RTshop}を使用した。
 
-\begin{figure}[H]
-  \begin{minipage}[b]{0.48\columnwidth}
-    \centering
-    \includegraphics[width=1.0\linewidth]{figs/tuna_robot.pdf}
-    \caption{ツナチームの機体}
-    \label{tuna}
-  \end{minipage}
-  \hspace{0.04\columnwidth} % ここで隙間作成
-  \begin{minipage}[b]{0.48\columnwidth}
-    \centering
-    \includegraphics[width=1.0\linewidth]{figs/tama_robot.pdf}
-    \caption{たまチームの機体}
-    \label{tama}
-  \end{minipage}\\
-  \begin{minipage}[b]{0.48\columnwidth}
-    \centering
-    \includegraphics[width=1.0\linewidth]{figs/mugimaru_robot.pdf}
-    \caption{むぎまるチームの機体}
-    \label{mugi}
-  \end{minipage}
-\end{figure}
+% \begin{figure}[H]
+%   \begin{minipage}[b]{0.48\columnwidth}
+%     \centering
+%     \includegraphics[width=1.0\linewidth]{figs/tuna_robot.pdf}
+%     \caption{ツナチームの機体}
+%     \label{tuna}
+%   \end{minipage}
+%   \hspace{0.04\columnwidth} % ここで隙間作成
+%   \begin{minipage}[b]{0.48\columnwidth}
+%     \centering
+%     \includegraphics[width=1.0\linewidth]{figs/tama_robot.pdf}
+%     \caption{たまチームの機体}
+%     \label{tama}
+%   \end{minipage}\\
+%   \begin{minipage}[b]{0.48\columnwidth}
+%     \centering
+%     \includegraphics[width=1.0\linewidth]{figs/mugimaru_robot.pdf}
+%     \caption{むぎまるチームの機体}
+%     \label{mugi}
+%   \end{minipage}
+% \end{figure}
 
+\begin{figure}[h]
+  \begin{center}
+      \includegraphics[width=0.8\linewidth]{figs/robot.pdf}
+      \caption{各チームの機体}
+      \label{fig:robot}
+  \end{center}
+\end{figure}
 \subsection{ツナチーム}
 
 \subsubsection{概要}
@@ -199,7 +206,7 @@ MPCは、他の追従手法と比較して、計算コストが高いという�
 
 %むぎまるチームが実験走行・本走行で使用したロボットを図ｘに示す．
 %ロボット本体には同所属の他チーム同様，株式会社アールティ様が販売している Raspberry Pi Cat を使用した．
-@@@まず概要を述べてから細かい話をする@@@
+%@@@まず概要を述べてから細かい話をする@@@
 むぎまるチームが使用した計算機は2つあり，MSI製 GF65 Thin 10SERというラップトップPCと，Raspberry Pi 4B+である．
 Raspberry Piは，速度司令のみをラップトップPCから入力し，Raspberry Pi Catを動かすドライバの役割として使用した．
 ラップトップPCでは自己位置推定，経路生成，経路追従などの主要となる計算を行う役割を担当していた．
@@ -214,32 +221,32 @@ Raspberry Piは，速度司令のみをラップトップPCから入力し，Ras
 3次元LiDARのスキャンデータとのマッチングにより求めた自己位置
 をもとに自律走行を行うものである．
 走行区間の3次元環境地図の作成には，FAST-LIOというLiDAR慣性オドメトリパッケージを使用した．
-図 fast\_lio package inout
+%図 fast\_lio package inout
 自己位置推定には，Autoware Universeの自己位置推定パッケージである，
 ndt\_scan\_matcherとekf\_localizerを使用した．
-図 autoware inout
+%図 autoware inout
 経路計画と障害物回避には，Nav2を使用した．
-図 Nav2
+%図 Nav2
 経路計画は2次元環境地図上で行い，推定した自己位置のx方向，y方向の情報のみを
 使用した．その際に必要になった2次元環境地図の作成には，pcd2pgmという
 PCD形式の3次元地図から2次元地図を生成可能なパッケージを使用した．
-図 pcd2pgm
+%図 pcd2pgm
 
 \begin{figure}[h]
   \begin{center}
       \includegraphics[width=1.0\linewidth]{figs/mugimaru_system.pdf}
-      \caption{むぎまるチームのソフトウェア構成}
+      \caption{むぎまるチームのシステム構成}
       \label{fig:mugimaru_system}
   \end{center}
 \end{figure}
 
-\begin{figure}[h]
-  \begin{center}
-      \includegraphics[width=1.0\linewidth]{figs/mugimaru_hard.pdf}
-      \caption{むぎまるチームのハードウェア構成}
-      \label{fig:mugimaru_hard}
-  \end{center}
-\end{figure}
+%\begin{figure}[h]
+%  \begin{center}
+%      \includegraphics[width=1.0\linewidth]{figs/mugimaru_hard.pdf}
+%      \caption{むぎまるチームのハードウェア構成}
+%      \label{fig:mugimaru_hard}
+%  \end{center}
+%\end{figure}
 
 
 %\section{本走行でのリタイアの原因}
