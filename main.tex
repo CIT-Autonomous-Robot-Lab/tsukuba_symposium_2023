@@ -6,7 +6,6 @@
 \usepackage[dvipdfmx]{graphicx} %dvipdfmxはjpgやpngの張り込みのために使用
 \usepackage{graphicx}
 
-
 % タイトル
 \title{小型自律移動ロボットを用いた\\つくばチャレンジ2023での取り組み}
 
@@ -71,12 +70,23 @@
 %使用した機体のベースは、アールティ社製の既製品、Raspberry Pi Catである。
 機体のベースには、アールティ社製の既製品であるRaspberry Pi Cat\cite{RTshop}を使用した。
 
-\begin{figure}[h]
-  \begin{center}
-    % \includegraphics[width=1.0\linewidth]{figs/raspicat.pdf}
-    \caption{Raspberry Pi Cat（上左: ツナチーム、上右: たまチーム、下左: むぎまるチーム）}
-    \label{fig:raspicat}
-  \end{center}
+\begin{figure}[tbp]
+  \begin{minipage}[b]{0.48\columnwidth}
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/tuna_robot.pdf}
+    \caption{ツナチームの機体}
+  \end{minipage}
+  \hspace{0.04\columnwidth} % ここで隙間作成
+  \begin{minipage}[b]{0.48\columnwidth}
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/tama_robot.pdf}
+    \caption{たまチームの機体}
+  \end{minipage}\\
+  \begin{minipage}[b]{0.48\columnwidth}
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/mugimaru_robot.pdf}
+    \caption{むぎまるチームの機体}
+  \end{minipage}
 \end{figure}
 
 %つくばチャレンジ2023での本走行の結果を表\ref{fig:main-run}に示す。
@@ -210,10 +220,18 @@ uhobeike/ike\_navの作成に関する詳細については、
 \subsubsection{ike\_navのシステム構成}
 
 作成したike\_navのシステム構成について説明をする。
-図に、ike\_navのシステム構成を示す。
-ike\_navは、地図、2次元LiDARからの観測情報、
+図\ref{fig:tuna_system}に、ike\_navのシステム構成を示す。
+ike\_navは、地図、2次元LiDARからの観測情報（スキャン）、
 ロボットのオドメトリを入力し、ある目標地点まで到達するための
 速度および推定した自己位置を出力する。
+
+\begin{figure}[h]
+  \begin{center}
+      \includegraphics[width=1.0\linewidth]{figs/ike_nav.pdf}
+      \caption{ツナチームのシステム構成}
+      \label{fig:tuna_system}
+  \end{center}
+\end{figure}
 
 ike\_navは、メタパッケージであり、
 ロボットの自律走行に必要な技術である、
