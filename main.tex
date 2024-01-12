@@ -170,11 +170,10 @@ GitHub上のリポジトリuhobeike/ike\_nav\cite{ike_nav}
 
 \subsubsection{ike\_navのシステム構成}
 
-作成したike\_navのシステム構成について説明をする。
 図\ref{fig:tuna_system}に、ike\_navのシステム構成を示す。
 ike\_navは、地図、2次元LiDARからの観測情報（スキャン）、
-ロボットのオドメトリを入力し、ある目標地点まで到達するための
-速度および推定した自己位置を出力する。
+ロボットのオドメトリを入力して受け入れ、
+ある目標地点まで到達するための速度および推定した自己位置を出力する。
 
 \begin{figure}[h]
   \begin{center}
@@ -195,12 +194,12 @@ ike\_navは、メタパッケージであり、
   \item[・ike\_costmap\_2d（コストマップの管理）:]地図、観測情報を入力し、コストマップを出力
   \item[・ike\_localization（自己位置推定）:]観測情報、地図、ロボットのオドメトリを入力し、自己位置を出力
   \item[・ike\_map\_server（地図の管理）:]pgmなどのデータからROS 2の占有格子地図を出力
-  \item[・ike\_nav\_server（目標地点までの管理）:]目標地点を入力し、到達するまでの管理をする
+  \item[・ike\_nav\_server（目標地点までの管理）:]目標地点を入力し、到達するまでを管理
   \item[・ike\_planner（経路計画）:]コストマップ、推定位置を入力し、経路を出力
-  \item[・ike\_waypoint\_follower（複数目標地点の管理）:]事前に設定した目標地点を辿るように管理をする
+  \item[・ike\_waypoint\_follower（複数目標地点の管理）:]事前に設定した目標地点を辿るように管理
 \end{description}
 
-以上の中でもアルゴリズムや手法が含まれているパッケージについて詳しく説明する。
+このうち、主要なパッケージについて詳しく説明する。
 まず、ike\_localizationであるが、自己位置推定の手法として、
 モンテカルロ自己位置推定法（MCL: Monte Carlo Localization）\cite{fox1999etal}を実装した。
 MCLは、比較的実装が容易である上に、
