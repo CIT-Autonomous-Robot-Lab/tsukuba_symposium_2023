@@ -89,9 +89,9 @@
 
 \begin{figure}[h]
   \begin{center}
-      \includegraphics[width=1.0\linewidth]{figs/robot.pdf}
-      \caption{各チームの機体}
-      \label{fig:robot}
+    \includegraphics[width=1.0\linewidth]{figs/robot.pdf}
+    \caption{各チームの機体}
+    \label{fig:robot}
   \end{center}
 \end{figure}
 \subsection{ツナチーム}
@@ -132,9 +132,9 @@ ike\_navは、地図、2次元LiDARからの観測情報（スキャン）、
 
 \begin{figure}[h]
   \begin{center}
-      \includegraphics[width=1.0\linewidth]{figs/ike_nav.pdf}
-      \caption{ツナチームのシステム構成}
-      \label{fig:tuna_system}
+    \includegraphics[width=1.0\linewidth]{figs/ike_nav.pdf}
+    \caption{ツナチームのシステム構成}
+    \label{fig:tuna_system}
   \end{center}
 \end{figure}
 
@@ -174,6 +174,7 @@ MPCは、他の追従手法と比較して、計算コストが高いという�
 
 \subsubsection{使用したハードウェアとソフトウェア}
 
+たまチームの構成を図\ref{fig:tama_system_diagram}に示す．
 たまチームは 2D LiDARとIMUを搭載し、
 これらのセンサーデータをRaspberry Pi 4B+を介して搭載されたノートPCに送信する。
 ノートPCではナビゲーションが実行され、
@@ -182,14 +183,13 @@ MPCは、他の追従手法と比較して、計算コストが高いという�
 ナビゲーションにはNav2を利用した。
 また、自己位置推定においては、
 昨年度まで利用されていたemcl2パッケージをROS 2に移行した、emcl2\_ros2利用している。
-詳細の構成はFig.\ref{fig:tama_system_diagram}を参照してほしい。
 
 \begin{figure}[h]
-    \begin{center}
-        \includegraphics[width=1.0\linewidth]{figs/tama_system_diagram.pdf}
-        \caption{たまチームのシステム構成}
-        \label{fig:tama_system_diagram}
-    \end{center}
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/tama_system_diagram.pdf}
+    \caption{たまチームのシステム構成}
+    \label{fig:tama_system_diagram}
+  \end{center}
 \end{figure}
 
 \subsection{むぎまるチーム}
@@ -213,7 +213,7 @@ Raspberry Piは，速度司令のみをラップトップPCから入力し，Ras
 
 センサ構成としては，3D LiDARにLivox製のMid-360を使用し，IMUにはMid-360に内蔵されるICM40609を使用した．
 使用したソフトウェアすべてUbuntu 22.04上で既存のROS2 Humbleパッケージを使用した．
-使用したパッケージを図ｘに示す．
+使用したパッケージを図\ref{fig:mugimaru_system}に示す．
 
 \subsubsection{自律移動システム}
 
@@ -234,9 +234,9 @@ PCD形式の3次元地図から2次元地図を生成可能なパッケージを
 
 \begin{figure}[h]
   \begin{center}
-      \includegraphics[width=1.0\linewidth]{figs/mugimaru_system.pdf}
-      \caption{むぎまるチームのシステム構成}
-      \label{fig:mugimaru_system}
+    \includegraphics[width=1.0\linewidth]{figs/mugimaru_system.pdf}
+    \caption{むぎまるチームのシステム構成}
+    \label{fig:mugimaru_system}
   \end{center}
 \end{figure}
 
@@ -355,7 +355,7 @@ IMUを搭載してマッピングを行ったが、
 本チームでは自己位置推定に使用する地図には，３次元点群地図を使用し，ナビゲーションには２次元の占有格子地図を使用している．
 ２次元の占有格子地図は３次元地図を元に生成しているのだが，３次元上の障害物を２次元上に投影する際に，坂のある地形ではねじれによるズレが生じる．
 ３次元点群地図では，ロール方向のねじれと，ピッチ方向のねじれが存在するため，必然的に２次元上に投影すると，平面方向にズレが生じる．
-本チームではロボットの自律移動の動作確認を，あまり坂道の存在しない環境で行っていたため，つくばチャレンジでの環境と想定以上の差が生まれてしまった．[図ｘ]
+本チームではロボットの自律移動の動作確認を，あまり坂道の存在しない環境で行っていたため，つくばチャレンジでの環境と想定以上の差が生まれてしまった．
 
 最後に消費電力についてだが，むぎまるチームでは主要となる計算機であるノートPCの消費電力が当研究室所属の他チームに比べて大きい．
 ３次元点群ベースの自己位置推定を行っているため，CPU使用率も高く仕方ない部分もあると考えるが，処理の軽量化も課題となるだろう．
@@ -369,12 +369,13 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
 
 来年度は今年度の開発内容をもとに，見つかった課題への対策や，今回開発が間に合わなかった機能の追加をし，
 小型ロボットでのコースの完走を目指す．
+また，
 
 
 
 
 \section*{謝辞}
-
+%　青木の名前があると嬉しいです
 %↑上田整理。あと、著者に名前を連ねない人がいたらここに書くと良いです。
 
 % 参考文献
@@ -423,11 +424,11 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   % \bibitem{GIMP}
   % GIMP.org: ``GIMP,'' \url{https://www.gimp.org/} (last visit: 2021-12-31)．
 
-\bibitem{emcl2}
-Ryuichi Ueda: ``ryuichiueda/emcl2,''\url{https://github.com/ryuichiueda/emcl2} (last visit: 2024-01-01).
+  \bibitem{emcl2}
+  Ryuichi Ueda: ``ryuichiueda/emcl2,''\url{https://github.com/ryuichiueda/emcl2} (last visit: 2024-01-01).
 
-\bibitem{emcl2_ros2}
-Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,''\url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2} (last visit: 2024-01-01).
+  \bibitem{emcl2_ros2}
+  Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,''\url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2} (last visit: 2024-01-01).
 
   %\bibitem{pfc}
   %Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
