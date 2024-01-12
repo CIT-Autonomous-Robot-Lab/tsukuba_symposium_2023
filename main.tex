@@ -41,7 +41,7 @@ Yuwa AOKI\eauthorrefmark{1}、Kenzo FUJISAKI\eauthorrefmark{1}、Shuji KAWAHARA\
 という名義で計3チームがエントリーした。
 各チームの具体的な目標は、
 \begin{itemize}
-  \item ツナチーム：ROS 2実装での自作ナビゲーションスタックを小型ロボットで実用
+  \item ツナチーム：ROS 2\cite{ROS 2}実装での自作ナビゲーションスタックを小型ロボットで実用
   \item たまチーム：本研究室の自己位置推定パッケージであるemcl2\cite{emcl2}をROS 2に移行したemcl2\_ros2\cite{emcl2_ros2}と、Nav2を組み合わせて小型ロボットで実用
   \item むぎまるチーム：安価・小型な3次元LiDARを用いた自律移動システムを小型ロボットで実用
 \end{itemize}
@@ -112,7 +112,7 @@ Raspberry Pi上でROS 2を実行するための
 \end{figure}
 
 ソフトウェアについては、
-本年度は、3チーム全てがROS 2\cite{ROS 2}をベースに構築した。
+本年度は、3チーム全てがROS 2をベースに構築した。
 昨年度まではROS\cite{ROS}を使用していたが、
 ROSの最終リリースであるROS Noetic Ninjemysが2025年5月に
 サポート終了を迎えることを受けてのことである。
@@ -208,8 +208,8 @@ MPCは、他の追従手法と比較して、計算コストが高いという�
 
 \subsection{たまチーム}\label{sub:localization}
 \subsubsection{概要}
-たまチームは、ROS 2に移行されたemcl2パッケージ\cite{emcl2}
-emcl2\_ros2\cite{emcl2_ros2}を用いて、
+たまチームは、ROS 2に移行されたemcl2パッケージ
+emcl2\_ros2を用いて、
 屋外でロボットに自律走行させた。
 目標に関しては、つくばチャレンジ初参加のチームメンバーであることも考え、
 無理に完走を目指さず、交差点手前までのナビゲーションということにした。
@@ -480,13 +480,28 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
 % \small
 \footnotesize
 \begin{thebibliography}{99}
-  \bibitem{ROS}
-  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,''
-  Open-Source Software workshop of the International Conference on Robotics and Automation、2009.
 
   \bibitem{ROS 2}
   Macenski, Steven {\it et al.}: ``Robot Operating System 2: Design, architecture, and uses in the wild,''
   Science Robotics, Vol. 7、No. 66, 2022.
+
+  \bibitem{emcl2}
+  Ryuichi Ueda: ``ryuichiueda/emcl2,'' \url{https://github.com/ryuichiueda/emcl2} (last visit: 2024-01-01).
+
+  \bibitem{emcl2_ros2}
+  Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,'' \url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2} (last visit: 2024-01-01).
+
+
+  \bibitem{RTshop}
+  株式会社アールティ: ``Raspberry Pi Cat 屋外でも動かせる中型2輪ロボット''，
+  RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2024-01-05)
+
+  \bibitem{池邉2022}
+  池邉 龍宏，内田 璃空，畑中 優一郎，臼井 温希，庄司 史門，松井 大和，山崎 政光，登内 リオン，林原 靖男，上田 隆一: Raspberry Pi のみを計算に用いる小型移動ロボットでのつくばチャレンジ 2022 参加レポート，つくばチャレンジ2022シンポジウム予稿集，2022．
+
+    \bibitem{ROS}
+  Morgan Quigley {\it et al.}: ``ROS: an open-source Robot Operating System,''
+  Open-Source Software workshop of the International Conference on Robotics and Automation、2009.
 
   %\bibitem{fox2003}
   %Dieter Fox:
@@ -522,11 +537,7 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   % \bibitem{GIMP}
   % GIMP.org: ``GIMP,'' \url{https://www.gimp.org/} (last visit: 2021-12-31)．
 
-  \bibitem{emcl2}
-  Ryuichi Ueda: ``ryuichiueda/emcl2,'' \url{https://github.com/ryuichiueda/emcl2} (last visit: 2024-01-01).
 
-  \bibitem{emcl2_ros2}
-  Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,'' \url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2} (last visit: 2024-01-01).
 
   %\bibitem{raspicat}
   %Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
@@ -540,8 +551,7 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   %\bibitem{池邉2021}
   %池邉 龍宏，曹 越，高橋 秀太，クルス　ペレス アントニオ，林原 靖男，上田 隆一: 小型移動ロボットによるつくばチャレンジへの挑戦，第22回計測自動制御学会システムインテグレーション部門講演会，pp.3390-3393，2021.
 
-  \bibitem{池邉2022}
-  池邉 龍宏，内田 璃空，畑中 優一郎，臼井 温希，庄司 史門，松井 大和，山崎 政光，登内 リオン，林原 靖男，上田 隆一: Raspberry Pi のみを計算に用いる小型移動ロボットでのつくばチャレンジ 2022 参加レポート，つくばチャレンジ2022シンポジウム予稿集，2022．
+  
 
   % \bibitem{上田2019}
   % 上田 隆一: ``詳解確率ロボティクス''、講談社、2019.
@@ -552,9 +562,6 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   % \bibitem{地図合成}
   % 川合隆太他: ``産業技術大学院大学における自律移動ロボット「産技大2号」の開発''，2019年度つくばチャレンジシンポジウム、pp.4-7、2020.
 
-  \bibitem{RTshop}
-  株式会社アールティ: ``Raspberry Pi Cat 屋外でも動かせる中型2輪ロボット''，
-  RT Robot Shop Products，\url{https://rt-net.jp/products/raspberry-pi-cat/} (last visit 2024-01-05)
 
   % \bibitem{aws2020}
   %   CIT自律ロボット研究室: ``AWSロボットデリバリーチャレンジで本研究室メンバーが優勝,'' \url{https://lab.ueda.tech/?post=20200915_aws_challenge} (last visit 2022-01-04)
@@ -566,8 +573,8 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   % つくばチャレンジ実行委員会事務局：``つくばチャレンジ 2021 ロボット仕様条件''，
   % \url{https://tsukubachallenge.jp/2021/regulations/specs} (last visit 2021-12-31)
 
-  \bibitem{UST-30LX}
-  北陽電機株式会社: ``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
+  % \bibitem{UST-30LX}
+  % 北陽電機株式会社: ``UST-30LX''，\url{https://www.hokuyo-aut.co.jp/search/single.php?serial=195#spec} (last visit: 2021-12-31).
 
   % \bibitem{Turtlebot3 Burger}
   % 株式会社ロボティズ： ``Turtlebot3 Burgerの仕様''，\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/features/} (last visit: 2022-1-3)．
@@ -586,14 +593,6 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   池邉龍宏: ``自作ナビゲーションスタックでつくばチャレンジ2023に挑戦してみた話''，
   \url{https://qiita.com/BEIKE/items/f3ff141cc25d49c01363} (last visit 2023-1-10).
 
-  \bibitem{fastlio}
-  Ericsii: ``Ericsii/FAST\_LIO (ros2 branch),'' \url{https://github.com/Ericsii/FAST_LIO.git} (last visit: 2023-11-19).
-
-  \bibitem{autoware}
-  The Autoware Foundation: ``autowarefoundation/autoware.universe,'' \url{https://github.com/autowarefoundation/autoware.universe.git} (last visit: 2023-11-19).
-
-  \bibitem{nav2}
-  ROS Planning: ``ros-planning/navigation2 (humble branch),'' \url{https://github.com/https://github.com/ros-planning/navigation2.git.git} (last visit: 2023-11-19).
 
   \bibitem{fox1999etal}
 	  D. Fox {\it et al.}: ``Monte Carlo Localization: Efficient Position Estimation for Mobile Robots,''
@@ -610,6 +609,16 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   \bibitem{alberto2006}
   Bemporad, Alberto: ``Model Predictive Control Design: New Trends and Tools,''
   Proceedings of the 45th IEEE Conference on Decision and Control, pp. 6678-6683, 2006.
+
+  \bibitem{fastlio}
+  Ericsii: ``Ericsii/FAST\_LIO (ros2 branch),'' \url{https://github.com/Ericsii/FAST_LIO.git} (last visit: 2023-11-19).
+
+  \bibitem{autoware}
+  The Autoware Foundation: ``autowarefoundation/autoware.universe,'' \url{https://github.com/autowarefoundation/autoware.universe.git} (last visit: 2023-11-19).
+
+  \bibitem{nav2}
+  ROS Planning: ``ros-planning/navigation2 (humble branch),'' \url{https://github.com/https://github.com/ros-planning/navigation2.git.git} (last visit: 2023-11-19).
+
 
   \bibitem{ike_nav_loc_youtube}
   池邉龍宏: ``自作パッケージで屋外自律移動してみた in つくばチャレンジ2023（本走行）''，
