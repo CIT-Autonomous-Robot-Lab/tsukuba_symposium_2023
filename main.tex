@@ -369,8 +369,8 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
 来年度は今年度の開発内容をもとに，見つかった課題への対策や，今回開発が間に合わなかった機能の追加をし，
 小型ロボットでのコースの完走を目指す．
 
-また，計算量の少なさにこだわらない別の試みとして，パーティクルの分布から，不確かさを考慮して行動決定する手法を実装したROSパッケージを作成しており，
-学校敷地内での実機実験をできる段階にある．
+また，計算量の少なさにこだわらない別の試みとして，パーティクルの分布から，不確かさを考慮して行動決定する手法を実装したROSパッケージを作成しており\cite{pfc}，
+実機実験をできる段階にある．
 この手法を実用できると，自己位置推定の結果が不確かであれば，
 センシングできない縁石などの障害物から遠ざかって移動するなど，よりロボットに柔軟に行動決定させることができる．
 %ロボットがゴールに向かうための時間コストを更新し続け，ロボットの行動を生成する手法を実装したROSパッケージを作成している。
@@ -434,8 +434,8 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   \bibitem{emcl2_ros2}
   Ryuichi Ueda: ``CIT-Autonomous-Robot-Lab/emcl2\_ros2,''\url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2} (last visit: 2024-01-01).
 
-  %\bibitem{pfc}
-  %Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
+  \bibitem{pfc}
+  Ryuichi Ueda: ``ryuichiueda/value\_iteration (amdp branch),''\\\url{https://github.com/ryuichiueda/value_iteration/tree/amdp} (last visit: 2022-12-12).
 
   %\bibitem{raspicat}
   %Ryuichi Ueda and Daisuke Sato: ``ja/raspicat,'' \url{https://wiki.ros.org/ja/raspicat} (last visit: 2021-12-31)．
