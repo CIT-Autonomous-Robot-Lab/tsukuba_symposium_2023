@@ -80,6 +80,8 @@ Raspberry Pi Cat\cite{RTshop}がベースになっている。
 Raspberry Pi上でROS 2を実行するための
 技術的な課題が解決しておらず、
 ノートPCを使用することとなった。
+この場合、Raspberry Pi Catには、
+ノートPCと制御用のRaspberry Piの2台の計算機が搭載されることとなる。
 センサ構成としては、各チームの機体に外界センサとして
 2次元LiDAR、3次元LiDAR、内界センサとしてIMUを搭載した。
 
@@ -154,15 +156,16 @@ GitHub上のリポジトリuhobeike/ike\_nav\cite{ike_nav}
 
 %uhobeike/ike\_navの作成に関する詳細については、
 
-\subsubsection{使用したハードウェア}
-ツナチームでは、図\ref{fig:robot}の機体を自律走行させた。
-機体には、2つのコンピュータが搭載されている。
-一つ目は、計算用として、ノートPCを搭載した。
-このノートPC上でike\_navを動作させた。
-二つ目は、機体の制御用として、Raspberry Pi 4B+を搭載した。
-
-観測用のセンサは、2次元LiDARであるUST-30LX\cite{UST-30LX}を搭載した。
-このLiDARの捜査角度は、270[deg]であり、最大検出距離は60[m]である。
+%↓いらない
+%\subsubsection{使用したハードウェア}
+%ツナチームでは、図\ref{fig:robot}の機体を自律走行させた。
+%機体には、2つのコンピュータが搭載されている。
+%一つ目は、計算用として、ノートPCを搭載した。
+%このノートPC上でike\_navを動作させた。
+%二つ目は、機体の制御用として、Raspberry Pi 4B+を搭載した。
+%
+%観測用のセンサは、2次元LiDARであるUST-30LX\cite{UST-30LX}を搭載した。
+%このLiDARの捜査角度は、270[deg]であり、最大検出距離は60[m]である。
 
 
 \subsubsection{ike\_navのシステム構成}
