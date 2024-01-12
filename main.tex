@@ -276,15 +276,16 @@ IMUにはMid-360に内蔵されるICM40609を使用した．
 3次元LiDARのスキャンデータとのマッチングにより求めた自己位置
 をもとに自律走行を行うものである．
 走行区間の3次元環境地図の作成には，FAST-LIOというLiDAR慣性オドメトリパッケージ
-@@@引用@@@を使用した．
+\cite{fastlio}を使用した．
 %図 fast\_lio package inout
 自己位置推定には，Autoware Universeの自己位置推定パッケージである，
-ndt\_scan\_matcherとekf\_localizerを使用した@@@引用@@@．
+ndt\_scan\_matcherとekf\_localizerを使用した\cite{autoware}．
 %図 autoware inout
-経路計画と障害物回避には，Nav2を使用した@@@これもついでに引用@@@．
+経路計画と障害物回避には，Nav2を使用した\cite{nav2}．
 %図 Nav2
-経路計画は2次元環境地図上で行い，推定した自己位置の位置（$xy$座標）の情報のみを
-使用した．@@@向きについては？？？@@@
+%経路計画は2次元環境地図上で行い，推定した自己位置の位置（$xy$座標）の情報のみを使用した．@@@向きについては？？？@@@
+経路計画は2次元環境地図上で行い，推定したロボットの位置（$xy$座標）と向き（$z$軸周り）の情報を使用した．
+
 その際に必要になった2次元環境地図の作成には，pcd2pgmという
 PCD形式の3次元地図から2次元地図を生成可能なパッケージを使用した．
 %図 pcd2pgm
@@ -561,7 +562,16 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
 
   \bibitem{ike_nav_detail}
   Qiita : ``自作ナビゲーションスタックでつくばチャレンジ2023に挑戦してみた話''，
-  \url{https://qiita.com/BEIKE/items/f3ff141cc25d49c01363} (last visit 2023-1-10)
+  \url{https://qiita.com/BEIKE/items/f3ff141cc25d49c01363} (last visit 2023-1-10).
+
+  \bibitem{fastlio}
+  Ericsii: ``Ericsii/FAST\_LIO (ros2 branch),''\url{https://github.com/Ericsii/FAST_LIO.git} (last visit: 2023-11-19).
+
+  \bibitem{autoware}
+  The Autoware Foundation: ``autowarefoundation/autoware.universe,''\url{https://github.com/autowarefoundation/autoware.universe.git} (last visit: 2023-11-19).
+
+  \bibitem{nav2}
+  ROS Planning: ``ros-planning/navigation2 (humble branch),''\url{https://github.com/https://github.com/ros-planning/navigation2.git.git} (last visit: 2023-11-19).
 
   \bibitem{fox1999etal}
   D. Fox and others : ``Monte Carlo Localization: Efficient Position Estimation for Mobile Robots,''
@@ -584,7 +594,7 @@ IMUや3次元LiDARの追加，自作のナビゲーションスタックの使�
   \url{https://www.youtube.com/embed/k9yxRKOCa14?si=c7ISmE1wH5W4BhgU&amp;start=1365} (last visit 2024-01-05)
 
   \bibitem{tonouchi2023}
-  登内ふがし, 池邉龍宏, 林原靖男, 上田隆一, “価値反復を用いた移動ロボットによる屋外ナビゲーション,” 
+  登内リオン, 池邉龍宏, 林原靖男, 上田隆一, “価値反復を用いた移動ロボットによる屋外ナビゲーション,” 
   Proc. of JSME Conf. on Robotics and Mechatronics (ROBOMECH), Article No.2P1-G06, 2023 (in Japanese). 
 
   \bibitem{ueda2023JRM}
